@@ -575,6 +575,7 @@ public class CompactCalendarTab extends Fragment {
         addEvents(i, 2019);
     }
 
+
     private void logEventsByMonth(CompactCalendarView compactCalendarView) {
         currentCalender.setTime(new Date());
         currentCalender.set(Calendar.DAY_OF_MONTH, 1);
