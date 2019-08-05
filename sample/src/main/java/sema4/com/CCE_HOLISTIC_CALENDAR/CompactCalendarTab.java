@@ -1,5 +1,7 @@
 package sema4.com.CCE_HOLISTIC_CALENDAR;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +25,10 @@ import android.widget.Toast;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +56,6 @@ public class CompactCalendarTab extends Fragment {
     private boolean shouldShow = false;
     private CompactCalendarView compactCalendarView;
     private ActionBar toolbar;
-    TextView text;
     FirebaseDatabase database;
     DatabaseReference myRef1;
     DatabaseReference myRef2;
@@ -62,8 +67,7 @@ public class CompactCalendarTab extends Fragment {
     ArrayList<String> month3=new ArrayList<>();
     ArrayList<String> month4=new ArrayList<>();
     ArrayList<String> month5=new ArrayList<>();
-
-
+    ProgressDialog progress;
 
 
 
@@ -71,7 +75,7 @@ public class CompactCalendarTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainTabView = inflater.inflate(R.layout.main_tab,container,false);
-        text=mainTabView.findViewById(R.id.textView2);
+
 
         database = FirebaseDatabase.getInstance();
         myRef1 = database.getReference().child("august");
@@ -81,7 +85,8 @@ public class CompactCalendarTab extends Fragment {
         myRef5 = database.getReference().child("december");
 
 
-       // myRef1.setValue("Hello, World!");
+
+        // myRef1.setValue("Hello, World!");
 
 
         // [END write_message]
@@ -117,6 +122,31 @@ public class CompactCalendarTab extends Fragment {
         compactCalendarView.displayOtherMonthDays(false);
         //compactCalendarView.setIsRtl(true);
 //        loadEvents();
+
+        //Create a progress bar for loding from firebase
+        progress = ProgressDialog.show(getContext(), "Please Wait",
+                "Fetching data", true);
+
+
+        //check internet connectivity
+        new Thread(new Runnable() {
+            public void run(){
+
+                if (isInternetAvailable("8.8.8.8", 53, 1000)) {
+                    // Internet available, do something
+                } else {
+                    Toast("An Internet Connection is Required");
+                    progress.dismiss();
+
+
+                }
+
+            }
+        }).start();
+
+
+
+
 
         myRef1.addValueEventListener(new ValueEventListener() {
             @Override
@@ -383,6 +413,7 @@ public class CompactCalendarTab extends Fragment {
                 month5.add(post5.day31);
 
                 loadEventsForYear(2019);
+                progress.dismiss();
 
             }
 
@@ -696,4 +727,28 @@ public class CompactCalendarTab extends Fragment {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
     }
+
+    public boolean isInternetAvailable(String address, int port, int timeoutMs) {
+        try {
+
+            Socket sock = new Socket();
+            SocketAddress sockaddr = new InetSocketAddress(address, port);
+
+            sock.connect(sockaddr, timeoutMs); // This will block no more than timeoutMs
+            sock.close();
+
+            return true;
+
+        } catch (IOException e) { return false; }
+    }
+
+
+    public void Toast(final String s){
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
+            }
+        });}
+
+
 }
