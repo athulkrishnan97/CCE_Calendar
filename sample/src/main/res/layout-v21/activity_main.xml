@@ -14,7 +14,7 @@
         android:layout_height="40dp"
         android:layout_weight="0"
         android:autoSizeTextType="uniform"
-        android:background="#397eff"
+        android:background="#FF3385FF"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:paddingLeft="20dp"

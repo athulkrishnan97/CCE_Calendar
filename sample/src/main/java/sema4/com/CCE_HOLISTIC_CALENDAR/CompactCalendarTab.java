@@ -68,6 +68,7 @@ public class CompactCalendarTab extends Fragment {
     ArrayList<String> month4=new ArrayList<>();
     ArrayList<String> month5=new ArrayList<>();
     ProgressDialog progress;
+    TextView textView;
 
 
 
@@ -75,8 +76,7 @@ public class CompactCalendarTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainTabView = inflater.inflate(R.layout.main_tab,container,false);
-
-
+        textView=mainTabView.findViewById(R.id.textView);
         database = FirebaseDatabase.getInstance();
         myRef1 = database.getReference().child("schedule").child("august");
         myRef2 = database.getReference().child("schedule").child("september");
@@ -95,15 +95,11 @@ public class CompactCalendarTab extends Fragment {
         // Read from the da
 
 
-        final List<String> mutableBookings = new ArrayList<>();
-//        currentCalender.set(2019,Calendar.JULY,1);
-        final ListView bookingsListView = mainTabView.findViewById(R.id.bookings_listview);
 
 
 
-        final ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, mutableBookings);
 
-        bookingsListView.setAdapter(adapter);
+
         compactCalendarView = mainTabView.findViewById(R.id.compactcalendar_view);
 
 //        compactCalendarView.set;
@@ -453,11 +449,28 @@ public class CompactCalendarTab extends Fragment {
                 Log.d(TAG, "inside onclick " + dateFormatForDisplaying.format(dateClicked));
                 if (bookingsFromMap != null) {
                     Log.d(TAG, bookingsFromMap.toString());
-                    mutableBookings.clear();
+
+                    textView.setText("");
                     for (Event booking : bookingsFromMap) {
-                        mutableBookings.add((String) booking.getData());
+
+
+
+                        textView.setText(booking.getData().toString());
+                        if(((String) booking.getData()).contains("Holiday")){
+
+                            textView.setTextColor(Color.RED);
+
+
+                        }
+                        else{
+
+                            textView.setTextColor(Color.parseColor("#FF3385FF"));
+
+
+
+                        }
                     }
-                    adapter.notifyDataSetChanged();
+
                 }
 
             }
@@ -650,24 +663,6 @@ public class CompactCalendarTab extends Fragment {
                 z++;
 
             }
-
-
-            String yt;
-
-                for (int k = 0; k < 31; k++) {
-
-
-                   yt=data[2][k];
-                    Log.d(TAG, "////////////////////////////////////////////////////////////////////////////////////////////////");
-                    Log.d(TAG, ""+yt);
-
-                }
-
-
-
-
-
-
 
             if(!data[month-7][i].equals("empty")) {
                 int r=0,g=128,b=255;
