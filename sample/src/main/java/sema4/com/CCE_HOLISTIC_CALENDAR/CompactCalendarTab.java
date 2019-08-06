@@ -109,7 +109,7 @@ public class CompactCalendarTab extends Fragment {
         // below allows you to configure colors for the current day the user has selected
          compactCalendarView.setCurrentSelectedDayBackgroundColor(getResources().getColor(R.color.light_blue));
         compactCalendarView.setUseThreeLetterAbbreviation(false);
-        compactCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
+        compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
         compactCalendarView.setIsRtl(false);
         compactCalendarView.displayOtherMonthDays(false);
         //compactCalendarView.setIsRtl(true);
