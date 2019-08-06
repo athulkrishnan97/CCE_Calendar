@@ -1,27 +1,24 @@
 package sema4.com.CCE_HOLISTIC_CALENDAR;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
@@ -37,8 +34,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
-
 
 
 import com.google.firebase.database.DataSnapshot;
@@ -56,19 +51,19 @@ public class CompactCalendarTab extends Fragment {
     private boolean shouldShow = false;
     private CompactCalendarView compactCalendarView;
     private ActionBar toolbar;
-    FirebaseDatabase database;
-    DatabaseReference myRef1;
-    DatabaseReference myRef2;
-    DatabaseReference myRef3;
-    DatabaseReference myRef4;
-    DatabaseReference myRef5;
-    ArrayList<String> month1=new ArrayList<>();
-    ArrayList<String> month2=new ArrayList<>();
-    ArrayList<String> month3=new ArrayList<>();
-    ArrayList<String> month4=new ArrayList<>();
-    ArrayList<String> month5=new ArrayList<>();
-    ProgressDialog progress;
-    TextView textView;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef1;
+    private DatabaseReference myRef2;
+    private DatabaseReference myRef3;
+    private DatabaseReference myRef4;
+    private DatabaseReference myRef5;
+    private ArrayList<String> month1=new ArrayList<>();
+    private ArrayList<String> month2=new ArrayList<>();
+    private ArrayList<String> month3=new ArrayList<>();
+    private ArrayList<String> month4=new ArrayList<>();
+    private ArrayList<String> month5=new ArrayList<>();
+    private ProgressDialog progress;
+    private TextView textView;
 
 
 
@@ -84,6 +79,7 @@ public class CompactCalendarTab extends Fragment {
         myRef4 = database.getReference().child("schedule").child("november");
         myRef5 = database.getReference().child("schedule").child("december");
 
+        //Crashlytics.getInstance().crash(); // Force a crash
 
 
         // myRef1.setValue("Hello, World!");
@@ -111,11 +107,12 @@ public class CompactCalendarTab extends Fragment {
         compactCalendarView.setUseThreeLetterAbbreviation(false);
         compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
         compactCalendarView.setIsRtl(false);
+
         compactCalendarView.displayOtherMonthDays(false);
         //compactCalendarView.setIsRtl(true);
 //        loadEvents();
 
-        //Create a progress bar for loding from firebase
+        //Create a progress bar for loading from firebase
         progress = ProgressDialog.show(getContext(), "Please Wait",
                 "Fetching data", true);
 
@@ -664,16 +661,28 @@ public class CompactCalendarTab extends Fragment {
 
             }
 
-            if(!data[month-7][i].equals("empty")) {
-                int r=0,g=128,b=255;
-                if(data[month-7][i].contains("Holiday")){
-                    r=255;
-                    g=0;
-                    b=0;
+            try {
+
+                if (!data[month - 7][i].equals("empty")) {
+                    int r = 0, g = 128, b = 255;
+                    if (data[month - 7][i].contains("Holiday")) {
+                        r = 255;
+                        g = 0;
+                        b = 0;
+                    }
+                    List<Event> events = Arrays.asList(new Event(Color.argb(255, r, g, b), timeInMillis, data[month - 7][i]));
+                    compactCalendarView.addEvents(events);
                 }
-                List<Event> events = Arrays.asList(new Event(Color.argb(255, r, g, b), timeInMillis, data[month-7][i]));
-                compactCalendarView.addEvents(events);
             }
+
+            catch (NullPointerException e){
+
+                Toast.makeText(getContext(),"Database Communication Error. Make sure that you have the latest version of the app",Toast.LENGTH_LONG).show();
+
+
+            }
+
+
         }
     }
 

@@ -35,11 +35,11 @@
         android:background="#3385FF"
         android:elevation="2dp" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_weight="1">
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
 
 </LinearLayout>
