@@ -52,6 +52,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation project(':library')
     implementation 'com.google.firebase:firebase-database:18.0.1'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'com.azimolabs.conditionwatcher:conditionwatcher:0.1'
     androidTestImplementation 'androidx.test:rules:1.2.0'
