@@ -920,7 +920,7 @@ class CompactCalendarController {
                     dayPaint.setColor(calenderTextColor);
                     dayPaint.setTypeface(Typeface.DEFAULT_BOLD);
                     dayPaint.setStyle(Paint.Style.FILL);
-                    if(dayColumn==6) {
+                    if(dayColumn==0) {
                         dayPaint.setColor(Color.rgb(255,0,0));
                     }
                     else {
@@ -940,7 +940,7 @@ class CompactCalendarController {
                     drawDayCircleIndicator(currentDayIndicatorStyle, canvas, xPosition, yPosition, currentDayBackgroundColor);
                     defaultCalenderTextColorToUse = currentDayTextColor;
                 }
-                if(dayColumn==6 || (dayRow==2 && dayColumn==5 && day >7) || (dayRow==3 && dayColumn==5 && day <15) || (dayRow==4 && dayColumn==5 && day >21) || (dayRow==5 && dayColumn==5 && day <29) ) {
+                if(dayColumn==0 || (dayRow==2 && dayColumn==6 && day >7) || (dayRow==3 && dayColumn==6 && day <15) || (dayRow==4 && dayColumn==6 && day >21) || (dayRow==6 && dayColumn==6 && day <29) ) {
                     defaultCalenderTextColorToUse=(Color.rgb(255,0,0));
                 }
                 else {
