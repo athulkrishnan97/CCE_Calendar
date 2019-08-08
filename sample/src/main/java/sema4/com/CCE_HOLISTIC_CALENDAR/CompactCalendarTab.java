@@ -1,6 +1,7 @@
 package sema4.com.CCE_HOLISTIC_CALENDAR;
 
 import android.app.ProgressDialog;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,9 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
-import com.github.sundeepk.compactcalendarview.CompactCalendarView;
-import com.github.sundeepk.compactcalendarview.domain.Event;
+import sema4.com.CCE_HOLISTIC_CALENDAR.domain.Event;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -90,6 +89,24 @@ public class CompactCalendarTab extends Fragment {
         // [START read_message]
         // Read from the da
 
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.w(TAG, "getInstanceId failed", task.getException());
+//                            return;
+//                        }
+//
+//                        // Get new Instance ID token
+//                        String token = task.getResult().getToken();
+//
+//                        // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d(TAG, msg);
+//                        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
 
 
@@ -107,6 +124,9 @@ public class CompactCalendarTab extends Fragment {
         compactCalendarView.setUseThreeLetterAbbreviation(false);
         compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
         compactCalendarView.setIsRtl(false);
+        double scale=getScreenHeight()/1.7;
+        int scaleint=(int)scale;
+        compactCalendarView.setTargetHeight(scaleint);
 
         compactCalendarView.displayOtherMonthDays(false);
         //compactCalendarView.setIsRtl(true);
@@ -677,8 +697,12 @@ public class CompactCalendarTab extends Fragment {
 
             catch (NullPointerException e){
 
-                Toast.makeText(getContext(),"Database Communication Error. Make sure that you have the latest version of the app",Toast.LENGTH_LONG).show();
+                // If the below condition is not checked, it would create an infinite amount of toasts in devices lower than lollipop
 
+                if(Build.VERSION.SDK_INT>19) {
+
+                    Toast.makeText(getContext(), "Database communication error. Make sure that you have the latest version of the app", Toast.LENGTH_LONG).show();
+                }
 
             }
 
@@ -715,6 +739,11 @@ public class CompactCalendarTab extends Fragment {
                 Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
             }
         });}
+
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
 
 
 }

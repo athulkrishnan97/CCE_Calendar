@@ -2,7 +2,8 @@ package com.github.sundeepk.compactcalendarview;
 
 import android.graphics.Color;
 
-import com.github.sundeepk.compactcalendarview.domain.Event;
+import sema4.com.CCE_HOLISTIC_CALENDAR.compactcalendarview.Events;
+import sema4.com.CCE_HOLISTIC_CALENDAR.domain.Event;
 
 import java.util.ArrayList;
 import java.util.Arrays;

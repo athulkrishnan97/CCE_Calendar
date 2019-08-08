@@ -1,4 +1,4 @@
-package com.github.sundeepk.compactcalendarview;
+package sema4.com.CCE_HOLISTIC_CALENDAR;
 
 
 import android.animation.Animator;

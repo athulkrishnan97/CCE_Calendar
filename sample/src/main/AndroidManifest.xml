@@ -4,19 +4,25 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:versionCode="2"
         android:allowBackup="true"
         android:icon="@mipmap/icon1"
         android:label="CCE HOLISTIC CALENDAR"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name="sema4.com.CCE_HOLISTIC_CALENDAR.MainActivity"
-            android:label="CCE HOLISTIC CALENDER" >
+            android:label="CCE HOLISTIC CALENDER"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
+
 
 </manifest>

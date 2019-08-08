@@ -1,6 +1,6 @@
-package com.github.sundeepk.compactcalendarview.comparators;
+package sema4.com.CCE_HOLISTIC_CALENDAR.comparators;
 
-import com.github.sundeepk.compactcalendarview.domain.Event;
+import sema4.com.CCE_HOLISTIC_CALENDAR.domain.Event;
 
 import java.util.Comparator;
 

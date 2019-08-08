@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Locale;
 
+import sema4.com.CCE_HOLISTIC_CALENDAR.WeekUtils;
+
 import static org.junit.Assert.assertArrayEquals;
 
 public class WeekUtilsTest {

@@ -1,6 +1,6 @@
-package com.github.sundeepk.compactcalendarview;
+package sema4.com.CCE_HOLISTIC_CALENDAR;
 
-import com.github.sundeepk.compactcalendarview.domain.Event;
+import sema4.com.CCE_HOLISTIC_CALENDAR.domain.Event;
 
 import java.util.List;
 

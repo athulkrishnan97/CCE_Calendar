@@ -1,4 +1,4 @@
-package com.github.sundeepk.compactcalendarview;
+package sema4.com.CCE_HOLISTIC_CALENDAR;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,7 +13,7 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.OverScroller;
 
-import com.github.sundeepk.compactcalendarview.domain.Event;
+import sema4.com.CCE_HOLISTIC_CALENDAR.domain.Event;
 
 import java.util.Calendar;
 import java.util.Date;

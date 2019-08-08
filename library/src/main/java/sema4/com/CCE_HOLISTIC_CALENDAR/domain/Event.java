@@ -1,4 +1,4 @@
-package com.github.sundeepk.compactcalendarview.domain;
+package sema4.com.CCE_HOLISTIC_CALENDAR.domain;
 
 import androidx.annotation.Nullable;
 

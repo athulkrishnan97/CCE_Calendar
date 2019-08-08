@@ -8,16 +8,17 @@
     android:background="@android:color/background_light">
 
 
-    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+    <sema4.com.CCE_HOLISTIC_CALENDAR.CompactCalendarView
         android:id="@+id/compactcalendar_view"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:scrollbarAlwaysDrawHorizontalTrack="false"
         android:scrollbarAlwaysDrawVerticalTrack="false"
+
         app:compactCalendarBackgroundColor="@android:color/background_light"
         app:compactCalendarCurrentDayBackgroundColor="?attr/colorButtonNormal"
         app:compactCalendarCurrentDayIndicatorStyle="fill_large_indicator"
@@ -25,7 +26,7 @@
         app:compactCalendarEventIndicatorStyle="small_indicator"
         app:compactCalendarOtherMonthDaysTextColor="@color/light_blue"
         app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="true"
-        app:compactCalendarTargetHeight="450dp"
+
         app:compactCalendarTextColor="@android:color/background_dark"
         app:compactCalendarTextSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -46,10 +48,42 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/compactcalendar_view"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/compactcalendar_view"
+        app:layout_constraintVertical_bias="0.84000003" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="395dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/compactcalendar_view"
+        app:layout_constraintVertical_bias="0.96" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="395dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/compactcalendar_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.19999999" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

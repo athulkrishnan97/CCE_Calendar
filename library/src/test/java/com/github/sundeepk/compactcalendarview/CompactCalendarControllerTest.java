@@ -1,14 +1,16 @@
 package com.github.sundeepk.compactcalendarview;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.widget.OverScroller;
 
-import com.github.sundeepk.compactcalendarview.domain.Event;
+import sema4.com.CCE_HOLISTIC_CALENDAR.compactcalendarview.CompactCalendarController;
+import sema4.com.CCE_HOLISTIC_CALENDAR.compactcalendarview.Events;
+import sema4.com.CCE_HOLISTIC_CALENDAR.EventsContainer;
+import sema4.com.CCE_HOLISTIC_CALENDAR.domain.Event;
 
 import org.junit.Before;
 import org.junit.Test;
