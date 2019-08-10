@@ -16,6 +16,7 @@ import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 import android.widget.OverScroller;
 
+
 import com.github.sundeepk.compactcalendarview.R;
 
 import sema4.com.CCE_HOLISTIC_CALENDAR.domain.Event;
@@ -139,6 +140,8 @@ class CompactCalendarController {
 
     private void loadAttributes(AttributeSet attrs, Context context) {
         if (attrs != null && context != null) {
+
+
             TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CompactCalendarView, 0, 0);
             try {
                 currentDayBackgroundColor = typedArray.getColor(R.styleable.CompactCalendarView_compactCalendarCurrentDayBackgroundColor, currentDayBackgroundColor);

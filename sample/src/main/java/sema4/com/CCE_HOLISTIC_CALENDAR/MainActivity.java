@@ -1,5 +1,6 @@
 package sema4.com.CCE_HOLISTIC_CALENDAR;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager pager;
     private ViewPagerAdapter adapter;
     private SlidingTabLayout tabs;
-    private CharSequence titles[]= {"Calendar","About Us"};
-    private int numberOfTabs = 2;
+    private CharSequence titles[]= {"Calendar","Notifications","About Us"};
+    private int numberOfTabs = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,4 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }

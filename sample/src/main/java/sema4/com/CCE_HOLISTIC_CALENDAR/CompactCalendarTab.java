@@ -40,6 +40,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 
 public class CompactCalendarTab extends Fragment {
 
@@ -67,6 +69,9 @@ public class CompactCalendarTab extends Fragment {
 
 
 
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainTabView = inflater.inflate(R.layout.main_tab,container,false);
@@ -77,6 +82,8 @@ public class CompactCalendarTab extends Fragment {
         myRef3 = database.getReference().child("schedule").child("october");
         myRef4 = database.getReference().child("schedule").child("november");
         myRef5 = database.getReference().child("schedule").child("december");
+
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         //Crashlytics.getInstance().crash(); // Force a crash
 
@@ -107,6 +114,10 @@ public class CompactCalendarTab extends Fragment {
 //                        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 //                    }
 //                });
+
+
+
+
 
 
 
