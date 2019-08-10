@@ -88,40 +88,6 @@ public class CompactCalendarTab extends Fragment {
         //Crashlytics.getInstance().crash(); // Force a crash
 
 
-        // myRef1.setValue("Hello, World!");
-
-
-        // [END write_message]
-
-        // [START read_message]
-        // Read from the da
-
-//        FirebaseInstanceId.getInstance().getInstanceId()
-//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                        if (!task.isSuccessful()) {
-//                            Log.w(TAG, "getInstanceId failed", task.getException());
-//                            return;
-//                        }
-//
-//                        // Get new Instance ID token
-//                        String token = task.getResult().getToken();
-//
-//                        // Log and toast
-//                        String msg = getString(R.string.msg_token_fmt, token);
-//                        Log.d(TAG, msg);
-//                        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
-
-
-
-
-
-
-
 
 
         compactCalendarView = mainTabView.findViewById(R.id.compactcalendar_view);
