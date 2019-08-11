@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import sema4.com.CCE_HOLISTIC_CALENDAR.Firebase_models.Post;
 import sema4.com.CCE_HOLISTIC_CALENDAR.domain.Event;
 
 import java.io.IOException;
@@ -41,7 +42,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
 
 public class CompactCalendarTab extends Fragment {
 

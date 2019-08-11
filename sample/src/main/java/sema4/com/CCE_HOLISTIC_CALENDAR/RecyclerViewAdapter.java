@@ -1,8 +1,8 @@
 package sema4.com.CCE_HOLISTIC_CALENDAR;
 
 import android.content.Context;
-import android.content.Intent;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -28,14 +25,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<String> mImageNames = new ArrayList<>();
-    private ArrayList<String> mImages = new ArrayList<>();
+    private ArrayList<String> mdate = new ArrayList<>();
+    private ArrayList<String> mbody = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> imageNames, ArrayList<String> images ) {
-        mImageNames = imageNames;
-        mImages = images;
-        mContext = context;
+    public RecyclerViewAdapter(Context context, ArrayList<String> date, ArrayList<String> body ) {
+        this.mdate = date;
+        this.mbody = body;
+        this.mContext = context;
     }
 
     @Override
@@ -54,7 +51,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //                .load(mImages.get(position))
 //                .into(holder.image);
         holder.image.setImageResource(R.drawable.cce);
-        holder.imageName.setText(mImageNames.get(position));
+        holder.date.setText(mdate.get(position));
+        holder.body.setText(mbody.get(position));
 
 
 
@@ -64,13 +62,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Log.d(TAG, "onClick: clicked on: " + mImageNames.get(position));
+//                Log.d(TAG, "onClick: clicked on: " + mdate.get(position));
 //
-//                Toast.makeText(mContext, mImageNames.get(position), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, mdate.get(position), Toast.LENGTH_SHORT).show();
+//
 //
 //                Intent intent = new Intent(mContext, GalleryActivity.class);
-//                intent.putExtra("image_url", mImages.get(position));
-//                intent.putExtra("image_name", mImageNames.get(position));
+//                intent.putExtra("image_url", mbody.get(position));
+//                intent.putExtra("image_name", mdate.get(position));
 //                mContext.startActivity(intent);
 //            }
 //        });
@@ -78,21 +77,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mImageNames.size();
+        return mdate.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         CircleImageView image;
-        TextView imageName;
+        TextView date;
+        TextView body;
         RelativeLayout parentLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
-            imageName = itemView.findViewById(R.id.image_name);
+            date = itemView.findViewById(R.id.date);
             parentLayout = itemView.findViewById(R.id.parent_layout);
+            body = itemView.findViewById(R.id.body);
         }
     }
 }

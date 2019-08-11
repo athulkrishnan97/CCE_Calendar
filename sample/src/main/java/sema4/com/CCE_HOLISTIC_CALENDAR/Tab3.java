@@ -11,69 +11,138 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Tab3 extends Fragment {
 
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private DatabaseReference myRef1;
+    private ArrayList<String> dateArray = new ArrayList<>();
+    private ArrayList<String> bodyArray = new ArrayList<>();
+    private static final String TAG = "Tab3";
     private View v;
+    private FirebaseDatabase database;
+    RecyclerViewAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.tab_3,container,false);
+        database = FirebaseDatabase.getInstance();
+        myRef1 = database.getReference().child("notificationList");
 
 
+        try {
+            myRef1.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    //String value = dataSnapshot.getValue(String.class);
+                    // Log.d(TAG, "Value is: " + value);
+                    //Toast.makeText(getContext(),value,Toast.LENGTH_LONG).show();
+                    dateArray.clear();
+                    bodyArray.clear();
+                    collectDatesAndBody((Map<String, Object>) dataSnapshot.getValue());
+                }
 
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException());
+                }
+            });
+        }
 
+        catch (Exception e ){
 
-        initImageBitmaps();
+            Toast.makeText(getContext(),"Exception in Notification Tab."+e.getMessage(),Toast.LENGTH_LONG).show();
+            Log.w(TAG, "Exception in Notification Tab."+e.getMessage());
+
+        }
+
         initRecyclerView();
 
         return v;
 
-
-
-
-
-
     }
 
-    private void initImageBitmaps(){
+
+    private void collectDatesAndBody(Map<String,Object> notificationList) {
 
 
-        mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-        mNames.add("Havasu Falls");
+    try {
+    //iterate through each user, ignoring their UID
+        for (Map.Entry<String, Object> entry : notificationList.entrySet()) {
 
-        mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-        mNames.add("Trondheim");
+            //Get user map
+            Map singleUser = (Map) entry.getValue();
+            //Get phone field and append to list
+            dateArray.add((String) singleUser.get("date"));
+            bodyArray.add((String) singleUser.get("body"));
+        }
+        }
+        catch (Exception e){
 
-        mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-        mNames.add("Portugal");
+        Toast.makeText(getContext(),"Could not parse database. Is your app updated?",Toast.LENGTH_LONG).show();
 
-        mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
-        mNames.add("Rocky Mountain National Park");
-
-
-        mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
-        mNames.add("Mahahual");
-
-        mImageUrls.add("https://i.redd.it/k98uzl68eh501.jpg");
-        mNames.add("Frozen Lake");
+        }
 
 
-        mImageUrls.add("https://i.redd.it/glin0nwndo501.jpg");
-        mNames.add("White Sands Desert");
 
-        mImageUrls.add("https://i.redd.it/obx4zydshg601.jpg");
-        mNames.add("Austrailia");
+        adapter.notifyDataSetChanged();
 
-        mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
-        mNames.add("Washington");
-
-
+        System.out.println(dateArray.toString());
     }
+
+
+
+//    private void initImageBitmaps(){
+//
+//
+//
+//
+//
+//        //bodyArray.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
+//        dateArray.add("Havasu Falls");
+//
+//        //bodyArray.add("https://i.redd.it/tpsnoz5bzo501.jpg");
+//        dateArray.add("Trondheim");
+//
+//        //bodyArray.add("https://i.redd.it/qn7f9oqu7o501.jpg");
+//        dateArray.add("Portugal");
+//
+//        //bodyArray.add("https://i.redd.it/j6myfqglup501.jpg");
+//        dateArray.add("Rocky Mountain National Park");
+//
+//
+//       // bodyArray.add("https://i.redd.it/0h2gm1ix6p501.jpg");
+//        dateArray.add("Mahahual");
+//
+//        //bodyArray.add("https://i.redd.it/k98uzl68eh501.jpg");
+//        dateArray.add("Frozen Lake");
+//
+//
+//       // bodyArray.add("https://i.redd.it/glin0nwndo501.jpg");
+//        dateArray.add("White Sands Desert");
+//
+//        //bodyArray.add("https://i.redd.it/obx4zydshg601.jpg");
+//        dateArray.add("Austrailia");
+//
+//        //bodyArray.add("https://i.imgur.com/ZcLLrkY.jpg");
+//        dateArray.add("Washington");
+//        dateArray.add("Puthenchira");
+//
+//
+//    }
 
 
     private void initRecyclerView() {
@@ -86,11 +155,14 @@ public class Tab3 extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final RecyclerViewAdapter adapter = new RecyclerViewAdapter(c, mNames, mImageUrls);
+                adapter = new RecyclerViewAdapter(c, dateArray, bodyArray);
+                adapter.notifyDataSetChanged();
                 c.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         recyclerView.setAdapter(adapter);
+
                     }
                 });
             }

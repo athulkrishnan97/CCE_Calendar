@@ -1,4 +1,4 @@
-package sema4.com.CCE_HOLISTIC_CALENDAR;
+package sema4.com.CCE_HOLISTIC_CALENDAR.Firebase_models;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 

@@ -15,19 +15,7 @@
         android:theme="@style/AppTheme"
         android:versionCode="2"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NotificationActivity"
-            android:theme="@android:style/Theme.NoDisplay"
 
-            >
-            <intent-filter>
-                <action android:name=".NotificationActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-
-
-
-        </activity>
         <activity android:name=".GalleryActivity"/>
 
         <activity

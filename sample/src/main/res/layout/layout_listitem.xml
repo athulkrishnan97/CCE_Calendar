@@ -12,26 +12,29 @@
         android:src="@mipmap/ic_launcher"/>
 
     <TextView
-        android:id="@+id/image_name"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="false"
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/image"
-        android:text="Tommarow is a Holiday!"
+        android:gravity="left"
+        android:text="This is a notification"
         android:textColor="#000"
         android:textSize="17sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/image_name2"
+        android:id="@+id/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image_name"
+        android:layout_below="@+id/date"
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/image"
-        android:text="Tommarow is a holiday due to excess rain"
+        android:gravity="left"
+        android:text="This is the body"
         android:textColor="#000"
         android:textSize="17sp" />
 
