@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence titles[]= {"Calendar","Notifications","About Us"};
     private int numberOfTabs = 3;
     private static final String TAG = "MainActivity";
+    boolean jumpToNotificationOnLaunch;
 
     //vars
 
@@ -53,13 +54,54 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
+      ////////////////////////////////////////////////////////////
+        Bundle b = getIntent().getExtras();
+        try {
+
+            //Check to see if the app was opened from an activity
+            String goToNotification = b.getString("Go to Notification Tab");
+
+            //Toast.makeText(getApplicationContext(),goToNotification,Toast.LENGTH_LONG).show();
+            if(goToNotification.equals("true")){
+
+            jumpToNotificationOnLaunch=true;
+
+            }
+
+        }
+
+        catch (NullPointerException e){
+
+            Log.d(TAG,"No Intent to pass");
+
+            //Toast.makeText(getApplicationContext(),"Exception in indent passing",Toast.LENGTH_LONG).show();
+        }
+
+        catch (Exception e){
+
+            Log.d(TAG,"Unknown exception at main activity intent passing");
+
+        }
+
+        //////////////////////////////////////////////////////////////////
+
+
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(), titles, numberOfTabs);
+        adapter =  new ViewPagerAdapter(getSupportFragmentManager(), titles, numberOfTabs,1);
+
+
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
+        //Checks to see whether the app was lunched from a notification. If so, jumps to the notification tab directly
+
+        if(jumpToNotificationOnLaunch) {
+
+            pager.setCurrentItem(1);
+
+        }
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
@@ -71,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
                 return getResources().getColor(R.color.black);
             }
         });
+
+
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);

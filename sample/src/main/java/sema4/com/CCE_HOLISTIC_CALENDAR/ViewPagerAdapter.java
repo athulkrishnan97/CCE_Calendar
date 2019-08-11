@@ -8,15 +8,28 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     CharSequence titles[];
     int numbOfTabs;
+    int showNotificationTab;
 
-    public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int mNumbOfTabs) {
+
+    public ViewPagerAdapter(FragmentManager fm, CharSequence titles[], int mNumbOfTabs, int showNotificationTab ) {
         super(fm);
         this.titles = titles;
         this.numbOfTabs = mNumbOfTabs;
+        this.showNotificationTab = showNotificationTab;
     }
+
+
+
 
     @Override
     public Fragment getItem(int position) {
+
+//        if(showNotificationTab==1){
+//
+//           position=1;
+//            showNotificationTab=0;
+//        }
+
         if (position == 0) {
             CompactCalendarTab compactCalendarTab = new CompactCalendarTab();
             return compactCalendarTab;
@@ -24,6 +37,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         else if(position==1) {
             Tab3 tab3 = new Tab3();
+
             return tab3;
         }
         else{

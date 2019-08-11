@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -55,19 +56,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.image.setImageResource(R.drawable.cce);
         holder.imageName.setText(mImageNames.get(position));
 
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + mImageNames.get(position));
 
-                Toast.makeText(mContext, mImageNames.get(position), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(mContext, GalleryActivity.class);
-                intent.putExtra("image_url", mImages.get(position));
-                intent.putExtra("image_name", mImageNames.get(position));
-                mContext.startActivity(intent);
-            }
-        });
+        // Uncomment the below code to implement onclick functions in the recycler view on notifications tab
+
+
+//        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d(TAG, "onClick: clicked on: " + mImageNames.get(position));
+//
+//                Toast.makeText(mContext, mImageNames.get(position), Toast.LENGTH_SHORT).show();
+//
+//                Intent intent = new Intent(mContext, GalleryActivity.class);
+//                intent.putExtra("image_url", mImages.get(position));
+//                intent.putExtra("image_name", mImageNames.get(position));
+//                mContext.startActivity(intent);
+//            }
+//        });
     }
 
     @Override

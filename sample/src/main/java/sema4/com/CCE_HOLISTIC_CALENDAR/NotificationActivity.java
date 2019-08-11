@@ -2,11 +2,12 @@ package sema4.com.CCE_HOLISTIC_CALENDAR;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class NotificationActivity extends AppCompatActivity {
+public class NotificationActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +19,24 @@ public class NotificationActivity extends AppCompatActivity {
             String title = b.getString("title");
             String body  = b.getString("body");
 
-            Toast.makeText(getApplicationContext(),title,Toast.LENGTH_LONG).show();
-            Toast.makeText(getApplicationContext(),body,Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),title,Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),body,Toast.LENGTH_LONG).show();
+
         }
+
+
 
         catch (NullPointerException e){
 
             Toast.makeText(getApplicationContext(),"Exception",Toast.LENGTH_LONG).show();
+        }
+
+        finally {
+            Intent myIntent = new Intent(NotificationActivity.this, MainActivity.class);
+            myIntent.putExtra("Go to Notification Tab", "true");
+            NotificationActivity.this.startActivity(myIntent);
+            finish();
+
         }
 
     }

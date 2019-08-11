@@ -15,7 +15,10 @@
         android:theme="@style/AppTheme"
         android:versionCode="2"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NotificationActivity">
+        <activity android:name=".NotificationActivity"
+            android:theme="@android:style/Theme.NoDisplay"
+
+            >
             <intent-filter>
                 <action android:name=".NotificationActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -44,7 +47,12 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="CCE HOLISTIC CALENDER"
+
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name=".MainActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
         </activity>
 
