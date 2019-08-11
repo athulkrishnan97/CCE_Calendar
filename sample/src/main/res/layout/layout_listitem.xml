@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/image_name"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/image"
         android:text="Tommarow is a holiday due to excess rain"
         android:textColor="#000"
