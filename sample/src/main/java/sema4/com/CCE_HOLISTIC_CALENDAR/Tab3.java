@@ -17,22 +17,32 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import java.util.Arrays;
 
 import java.util.ArrayList;
+
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.stream.IntStream;
+
+import sema4.com.CCE_HOLISTIC_CALENDAR.Firebase_models.BoostString;
 
 
 public class Tab3 extends Fragment {
 
     private DatabaseReference myRef1;
-    private ArrayList<String> dateArray = new ArrayList<>();
-    private ArrayList<String> bodyArray = new ArrayList<>();
+    private ArrayList<String> dateArrayList = new ArrayList<>();
+    private ArrayList<String> bodyArrayList = new ArrayList<>();
+    private ArrayList<NotificationObject> notificationObjectsArrayList = new ArrayList<>();
     private static final String TAG = "Tab3";
     private View v;
     private FirebaseDatabase database;
     RecyclerViewAdapter adapter;
+    String[][] notificationArray;
+    int iterator =0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.tab_3,container,false);
@@ -49,9 +59,11 @@ public class Tab3 extends Fragment {
                     //String value = dataSnapshot.getValue(String.class);
                     // Log.d(TAG, "Value is: " + value);
                     //Toast.makeText(getContext(),value,Toast.LENGTH_LONG).show();
-                    dateArray.clear();
-                    bodyArray.clear();
+                    dateArrayList.clear();
+                    bodyArrayList.clear();
+                    notificationObjectsArrayList.clear();
                     collectDatesAndBody((Map<String, Object>) dataSnapshot.getValue());
+
                 }
 
                 @Override
@@ -76,6 +88,8 @@ public class Tab3 extends Fragment {
     }
 
 
+
+
     private void collectDatesAndBody(Map<String,Object> notificationList) {
 
 
@@ -86,10 +100,31 @@ public class Tab3 extends Fragment {
             //Get user map
             Map singleUser = (Map) entry.getValue();
             //Get phone field and append to list
-            dateArray.add((String) singleUser.get("date"));
-            bodyArray.add((String) singleUser.get("body"));
+            //Toast.makeText(getContext(),""+Integer.parseInt((String)singleUser.get("order")),Toast.LENGTH_LONG).show();
+            notificationObjectsArrayList.add(new NotificationObject(Integer.parseInt((String)singleUser.get("order")),(String) singleUser.get("date"),(String) singleUser.get("body")));
+            //dateArrayList.add((String) singleUser.get("date"));
+            //bodyArrayList.add((String) singleUser.get("body"));
         }
+
+        NotificationObject[] notificationObjectsArray=new NotificationObject[(notificationObjectsArrayList.size())];
+        notificationObjectsArrayList.toArray(notificationObjectsArray);
+
+        //Toast.makeText(getContext(),notificationObjectsArray[0].date,Toast.LENGTH_LONG).show();
+
+        Arrays.sort(notificationObjectsArray, new Comparator<NotificationObject>(){
+            @Override
+            public int compare(NotificationObject noti_1, NotificationObject noti_2){
+                return noti_1.order - noti_2.order;
+            }
+        });
+
+        for(NotificationObject i:notificationObjectsArray){
+            dateArrayList.add(i.date);
+            bodyArrayList.add(i.body);
+
         }
+
+    }
         catch (Exception e){
 
         Toast.makeText(getContext(),"Could not parse database. Is your app updated?",Toast.LENGTH_LONG).show();
@@ -100,7 +135,7 @@ public class Tab3 extends Fragment {
 
         adapter.notifyDataSetChanged();
 
-        System.out.println(dateArray.toString());
+
     }
 
 
@@ -111,35 +146,35 @@ public class Tab3 extends Fragment {
 //
 //
 //
-//        //bodyArray.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-//        dateArray.add("Havasu Falls");
+//        //bodyArrayList.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
+//        dateArrayList.add("Havasu Falls");
 //
-//        //bodyArray.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-//        dateArray.add("Trondheim");
+//        //bodyArrayList.add("https://i.redd.it/tpsnoz5bzo501.jpg");
+//        dateArrayList.add("Trondheim");
 //
-//        //bodyArray.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-//        dateArray.add("Portugal");
+//        //bodyArrayList.add("https://i.redd.it/qn7f9oqu7o501.jpg");
+//        dateArrayList.add("Portugal");
 //
-//        //bodyArray.add("https://i.redd.it/j6myfqglup501.jpg");
-//        dateArray.add("Rocky Mountain National Park");
-//
-//
-//       // bodyArray.add("https://i.redd.it/0h2gm1ix6p501.jpg");
-//        dateArray.add("Mahahual");
-//
-//        //bodyArray.add("https://i.redd.it/k98uzl68eh501.jpg");
-//        dateArray.add("Frozen Lake");
+//        //bodyArrayList.add("https://i.redd.it/j6myfqglup501.jpg");
+//        dateArrayList.add("Rocky Mountain National Park");
 //
 //
-//       // bodyArray.add("https://i.redd.it/glin0nwndo501.jpg");
-//        dateArray.add("White Sands Desert");
+//       // bodyArrayList.add("https://i.redd.it/0h2gm1ix6p501.jpg");
+//        dateArrayList.add("Mahahual");
 //
-//        //bodyArray.add("https://i.redd.it/obx4zydshg601.jpg");
-//        dateArray.add("Austrailia");
+//        //bodyArrayList.add("https://i.redd.it/k98uzl68eh501.jpg");
+//        dateArrayList.add("Frozen Lake");
 //
-//        //bodyArray.add("https://i.imgur.com/ZcLLrkY.jpg");
-//        dateArray.add("Washington");
-//        dateArray.add("Puthenchira");
+//
+//       // bodyArrayList.add("https://i.redd.it/glin0nwndo501.jpg");
+//        dateArrayList.add("White Sands Desert");
+//
+//        //bodyArrayList.add("https://i.redd.it/obx4zydshg601.jpg");
+//        dateArrayList.add("Austrailia");
+//
+//        //bodyArrayList.add("https://i.imgur.com/ZcLLrkY.jpg");
+//        dateArrayList.add("Washington");
+//        dateArrayList.add("Puthenchira");
 //
 //
 //    }
@@ -155,7 +190,7 @@ public class Tab3 extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                adapter = new RecyclerViewAdapter(c, dateArray, bodyArray);
+                adapter = new RecyclerViewAdapter(c, dateArrayList, bodyArrayList);
                 adapter.notifyDataSetChanged();
                 c.runOnUiThread(new Runnable() {
                     @Override

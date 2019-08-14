@@ -18,6 +18,7 @@ package sema4.com.CCE_HOLISTIC_CALENDAR;
 import android.content.Context;
 import android.graphics.Typeface;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -223,6 +224,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if (i == mViewPager.getCurrentItem()) {
                 tabView.setSelected(true);
             }
+            int color = ContextCompat.getColor(tabView.getContext(), R.color.white);
+            tabTitleView.setTextColor(color);
         }
     }
 

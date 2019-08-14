@@ -135,7 +135,7 @@ public class CompactCalendarTab extends Fragment {
 
 
 
-        myRef1.addValueEventListener(new ValueEventListener() {
+        myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -191,7 +191,7 @@ public class CompactCalendarTab extends Fragment {
             }
         });
 
-        myRef2.addValueEventListener(new ValueEventListener() {
+        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -248,7 +248,7 @@ public class CompactCalendarTab extends Fragment {
         });
 
 
-        myRef3.addValueEventListener(new ValueEventListener() {
+        myRef3.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -302,7 +302,7 @@ public class CompactCalendarTab extends Fragment {
         });
 
 
-        myRef4.addValueEventListener(new ValueEventListener() {
+        myRef4.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -355,7 +355,7 @@ public class CompactCalendarTab extends Fragment {
             }
         });
 
-        myRef5.addValueEventListener(new ValueEventListener() {
+        myRef5.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -611,7 +611,7 @@ public class CompactCalendarTab extends Fragment {
 
 
 
-            //List<Event> events = getEvents(timeInMillis, i);
+            //List<Event> events = getEvents(timeInMillis, iterator);
 //            String[][] data = new String[][] {{"COMMENCEMENT OF CLASSES","","VALUE ADDED PROGRAM","","","","","","FRESHERS DAY","","Holiday - BAKRID","","","","Holiday - INDEPENDENCE DAY","ADDON","ADDON","","MODULE TEST 1","","","","Holiday - SREEKRISHNA JAYANTHI","","","REMEDIAL CLASS","REMEDIAL CLASS","Holiday - AYANKALI JAYANTHI","","","ADDRESS BY PRINCIPAL/HOD"},
 //                                            {"","SERIES 1","","","","ONAM CELEBRATION","Holiday - ONAM VACATION STARTS","","Holiday - MUHRAM","Holiday","Holiday","Holiday","Holiday","","","REOPENING, EXTRA ADDON","","","","PTA MEETING","Holiday - SREENARAYANA GURU SAMADHI","","REMEDIAL BASED ON SERIES 1","","","","FILM CLUB / LITERARY CLUB ACTIVITIES","","","",""},
 //                                             {"","Holiday - GANDHI JAYANTHI","","VALUE ADDED PROGRAM","SPORTS DAY","","Holiday - MAHANAVAMI","","","","","","","SERIES II","","","","","SOCIALLY COMMITTED ACTIVITY","","REMEDIAL BASED ON SERIES II","","","","","","Holiday - DEEPAVALI","","","","", },

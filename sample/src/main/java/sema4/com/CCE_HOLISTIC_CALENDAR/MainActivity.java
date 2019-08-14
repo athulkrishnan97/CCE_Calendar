@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 //        getSupportActionBar().setElevation(0);
         setContentView(R.layout.activity_main);
         TextView textv = (TextView) findViewById(R.id.textView3);
-        textv.setShadowLayer(0, 0, 0, Color.BLACK);
+        textv.setTextColor(Color.parseColor("#FFFFFF"));
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -95,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
+
+
         //Checks to see whether the app was lunched from a notification. If so, jumps to the notification tab directly
 
         if(jumpToNotificationOnLaunch) {
@@ -104,14 +106,17 @@ public class MainActivity extends AppCompatActivity {
         }
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
+
 
         // Setting Custom Color for the Scroll bar indicator of the Tab View
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.black);
+                return getResources().getColor(R.color.white);
             }
+
         });
 
 
