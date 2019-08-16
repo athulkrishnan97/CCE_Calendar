@@ -25,9 +25,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
-import sema4.com.CCE_HOLISTIC_CALENDAR.Firebase_models.BoostString;
+
 
 
 public class Tab3 extends Fragment {
@@ -62,7 +63,7 @@ public class Tab3 extends Fragment {
                     dateArrayList.clear();
                     bodyArrayList.clear();
                     notificationObjectsArrayList.clear();
-                    collectDatesAndBody((Map<String, Object>) dataSnapshot.getValue());
+                    collectDatesAndBody((Map<String, Object>) Objects.requireNonNull(dataSnapshot.getValue()));
 
                 }
 
@@ -93,7 +94,7 @@ public class Tab3 extends Fragment {
     private void collectDatesAndBody(Map<String,Object> notificationList) {
 
 
-    try {
+   try {
     //iterate through each user, ignoring their UID
         for (Map.Entry<String, Object> entry : notificationList.entrySet()) {
 
@@ -101,7 +102,9 @@ public class Tab3 extends Fragment {
             Map singleUser = (Map) entry.getValue();
             //Get phone field and append to list
             //Toast.makeText(getContext(),""+Integer.parseInt((String)singleUser.get("order")),Toast.LENGTH_LONG).show();
-            notificationObjectsArrayList.add(new NotificationObject(Integer.parseInt((String)singleUser.get("order")),(String) singleUser.get("date"),(String) singleUser.get("body")));
+            if ((String)singleUser.get("order")!=null) {
+                notificationObjectsArrayList.add(new NotificationObject(Integer.parseInt((String) singleUser.get("order")), (String) singleUser.get("date"), (String) singleUser.get("body")));
+            }
             //dateArrayList.add((String) singleUser.get("date"));
             //bodyArrayList.add((String) singleUser.get("body"));
         }
@@ -114,7 +117,7 @@ public class Tab3 extends Fragment {
         Arrays.sort(notificationObjectsArray, new Comparator<NotificationObject>(){
             @Override
             public int compare(NotificationObject noti_1, NotificationObject noti_2){
-                return noti_1.order - noti_2.order;
+                return noti_2.order - noti_1.order;
             }
         });
 
@@ -125,7 +128,7 @@ public class Tab3 extends Fragment {
         }
 
     }
-        catch (Exception e){
+        catch (NullPointerException e){
 
         Toast.makeText(getContext(),"Could not parse database. Is your app updated?",Toast.LENGTH_LONG).show();
 
