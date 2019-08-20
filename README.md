@@ -8,7 +8,9 @@ We use the database from google firebase toolkit to store data on the cloud. Unl
 
 # Compiling
 
-The master branch can be directly downloaded and compiled without much preparations. However, you will need a google-services.json which links the app with external google services such as firebase database and firbase cloud messaging. This particular file is not uploaded in this repository as it contains sensitive data. You'll have to create a firebase account (which is really easy btw) and download the google-services.json for that particular account and copy it to the "sample" directory. The app should then compile succesfully.   
+The master branch can be directly downloaded and compiled without much preparations. However, you will need a google-services.json which links the app with external google services such as firebase database and firbase cloud messaging. 
+
+This particular file is not uploaded in this repository as it contains sensitive data. You'll have to create a firebase account (which is really easy btw) and download the google-services.json for that particular account and copy it to the "sample" directory. The app should then compile succesfully.   
 
 
 # Contributing  
