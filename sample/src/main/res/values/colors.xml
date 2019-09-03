@@ -3,6 +3,6 @@
         <color name="black">#000</color>
         <color name="light_blue">#3385FF</color>
         <color name="white">#ffffff</color>
-        <color name="grey">#C7C7C7</color>
+        <color name="statusBar">#FF0B6BC9</color>
     <color name="red">#FC2919</color>
     </resources>

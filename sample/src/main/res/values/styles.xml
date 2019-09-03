@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
     </style>
     <style name="AppTheme.NoDisplay" parent="Theme.AppCompat.Light">
         <item name="android:windowBackground">@android:color/transparent</item>

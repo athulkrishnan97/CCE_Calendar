@@ -10,28 +10,28 @@
 
     <sema4.com.CCE_HOLISTIC_CALENDAR.CompactCalendarView
         android:id="@+id/compactcalendar_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="398dp"
+        android:layout_height="554dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+
         android:scrollbarAlwaysDrawHorizontalTrack="false"
         android:scrollbarAlwaysDrawVerticalTrack="false"
-
         app:compactCalendarBackgroundColor="@android:color/background_light"
         app:compactCalendarCurrentDayBackgroundColor="?attr/colorButtonNormal"
         app:compactCalendarCurrentDayIndicatorStyle="fill_large_indicator"
         app:compactCalendarCurrentSelectedDayBackgroundColor="@color/light_blue"
         app:compactCalendarEventIndicatorStyle="small_indicator"
+
         app:compactCalendarOtherMonthDaysTextColor="@color/light_blue"
         app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="true"
-
         app:compactCalendarTextColor="@android:color/background_dark"
         app:compactCalendarTextSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/textView"
@@ -50,8 +50,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/compactcalendar_view"
-        app:layout_constraintVertical_bias="0.84000003" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.88" />
 
     <View
         android:id="@+id/divider"
@@ -66,8 +66,8 @@
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/compactcalendar_view"
-        app:layout_constraintVertical_bias="0.96" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0" />
 
     <View
         android:id="@+id/divider2"
@@ -77,13 +77,39 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="@+id/compactcalendar_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.19999999" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#303F9F"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleMargin="4dp" />
+
+    <TextView
+        android:id="@+id/currentMonthTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="Hello World!"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.41000003" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

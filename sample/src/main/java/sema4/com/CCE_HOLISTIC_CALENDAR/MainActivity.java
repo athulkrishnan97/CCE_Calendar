@@ -44,15 +44,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 //        getSupportActionBar().setElevation(0);
         setContentView(R.layout.activity_main);
-        TextView textv = (TextView) findViewById(R.id.textView3);
-        textv.setTextColor(Color.parseColor("#FFFFFF"));
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+        toolbar.setBackgroundColor(Color.parseColor("#FF1976D2"));
 
       ////////////////////////////////////////////////////////////
         Bundle b = getIntent().getExtras();

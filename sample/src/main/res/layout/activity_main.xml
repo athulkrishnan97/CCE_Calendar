@@ -1,47 +1,43 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:animateLayoutChanges="true"
-                android:orientation="vertical"
-                android:id="@+id/parent"
-                tools:context=".MainActivity">
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:autoSizeTextType="uniform"
-
-        android:fontFamily="sans-serif-light"
-        android:paddingLeft="12dp"
-        android:paddingTop="10dp"
-        android:text="@string/cce_holistic_calender"
-        android:textColor="@android:color/background_light"
-        android:textSize="24sp"
-        android:textStyle="normal|bold" />
+    <sema4.com.CCE_HOLISTIC_CALENDAR.SlidingTabLayout
+        android:id="@+id/tabs"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#1976D2"
+        android:elevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
 
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp" />
-
-    <sema4.com.CCE_HOLISTIC_CALENDAR.SlidingTabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-
-
-        android:elevation="2dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:layout_weight="1">
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs"></androidx.viewpager.widget.ViewPager>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

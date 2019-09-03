@@ -65,6 +65,7 @@ public class CompactCalendarTab extends Fragment {
     private ArrayList<String> month5=new ArrayList<>();
     private ProgressDialog progress;
     private TextView textView;
+    TextView currentMonthTextView;
 
 
 
@@ -432,14 +433,17 @@ public class CompactCalendarTab extends Fragment {
         // show Sunday as first day of month
 //         compactCalendarView.setShouldShowMondayAsFirstDay(false);
 //set initial title
+        currentMonthTextView=mainTabView.findViewById(R.id.currentMonthTextView);
+        currentMonthTextView.setText(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+        toolbar.setTitle("CCE Holistic Calendar");
 
         //set title on calendar scroll
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
-            public void onDayClick(Date dateClicked) {
-                toolbar.setTitle(dateFormatForMonth.format(dateClicked));
+            public void onDayClick(Date dateClicked){
+                currentMonthTextView.setText(dateFormatForMonth.format(dateClicked));
                 List<Event> bookingsFromMap = compactCalendarView.getEvents(dateClicked);
                 Log.d(TAG, "inside onclick " + dateFormatForDisplaying.format(dateClicked));
                 if (bookingsFromMap != null) {
@@ -459,7 +463,7 @@ public class CompactCalendarTab extends Fragment {
                         }
                         else{
 
-                            textView.setTextColor(Color.parseColor("#FF3385FF"));
+                            textView.setTextColor(Color.parseColor("#303F9F"));
 
 
 
@@ -472,7 +476,8 @@ public class CompactCalendarTab extends Fragment {
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
-                toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+
+                currentMonthTextView.setText(dateFormatForMonth.format(firstDayOfNewMonth));
                 onDayClick(firstDayOfNewMonth);
             }
         });
@@ -560,7 +565,8 @@ public class CompactCalendarTab extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        toolbar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+        currentMonthTextView.setText(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+
         // Set to current day on resume to set calendar to latest day
         // toolbar.setTitle(dateFormatForMonth.format(new Date()));
     }
@@ -662,7 +668,7 @@ public class CompactCalendarTab extends Fragment {
             try {
 
                 if (!data[month - 7][i].equals("empty")) {
-                    int r = 0, g = 128, b = 255;
+                    int r = 48, g = 63, b = 159;
                     if (data[month - 7][i].contains("Holiday")) {
                         r = 255;
                         g = 0;
