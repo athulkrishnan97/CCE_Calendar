@@ -2,6 +2,7 @@ package sema4.com.CCE_HOLISTIC_CALENDAR;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private int numberOfTabs = 2;
     private static final String TAG = "MainActivity";
     boolean jumpToNotificationOnLaunch;
+    String appPackageName="sema4.com.CCE_HOLISTIC_CALENDAR";
 
     //vars
 
@@ -54,17 +56,29 @@ public class MainActivity extends AppCompatActivity {
 
 
       ////////////////////////////////////////////////////////////
-        Bundle b = getIntent().getExtras();
+        Bundle b = getIntent().getExtras(); //get bundle data from the passed json via notification push
         try {
 
-            //Check to see if the app was opened from an activity
+            //Check to see if the app was opened from an notification
             String goToNotification = b.getString("Go to Notification Tab");
+            String newUpdateAvailable =b.getString("Update Notification");
 
-            //Toast.makeText(getApplicationContext(),goToNotification,Toast.LENGTH_LONG).show();
+
             if(goToNotification.equals("true")){
 
             jumpToNotificationOnLaunch=true;
 
+            }
+
+            if(newUpdateAvailable.equals("true")){
+                try {
+                    Intent appStoreIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));
+                    appStoreIntent.setPackage("com.android.vending");
+
+                    startActivity(appStoreIntent);
+                } catch (android.content.ActivityNotFoundException exception) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
             }
 
         }
@@ -78,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         catch (Exception e){
 
-            Log.d(TAG,"Unknown exception at main activity intent passing");
+            Log.e(TAG,"Unknown exception at main activity intent passing");
 
         }
 

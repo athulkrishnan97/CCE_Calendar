@@ -84,8 +84,8 @@ public class CompactCalendarTab extends Fragment {
         myRef4 = database.getReference().child("schedule").child("november");
         myRef5 = database.getReference().child("schedule").child("december");
 
-        FirebaseMessaging.getInstance().subscribeToTopic("test");
-        //FirebaseMessaging.getInstance().subscribeToTopic("all");
+        //FirebaseMessaging.getInstance().subscribeToTopic("test");
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         //Crashlytics.getInstance().crash(); // Force a crash
 
