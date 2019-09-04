@@ -15,5 +15,10 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+    <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:colorBackground">@color/statusBar</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
 
 </resources>

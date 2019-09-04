@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager pager;
     private ViewPagerAdapter adapter;
     private SlidingTabLayout tabs;
-    private CharSequence titles[]= {"Calendar","Notifications","About Us"};
-    private int numberOfTabs = 3;
+    private CharSequence titles[]= {"Calendar","Notifications"};
+    private int numberOfTabs = 2;
     private static final String TAG = "MainActivity";
     boolean jumpToNotificationOnLaunch;
 
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         toolbar.setBackgroundColor(Color.parseColor("#FF1976D2"));
+
 
       ////////////////////////////////////////////////////////////
         Bundle b = getIntent().getExtras();
@@ -140,6 +141,12 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            Intent myIntent = new Intent(MainActivity.this,  AboutUs.class);
+
+            MainActivity.this.startActivity(myIntent);
+
+
             return true;
         }
 

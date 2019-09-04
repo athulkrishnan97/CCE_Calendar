@@ -4,4 +4,4 @@
     android:layout_height="wrap_content"
     android:background="@color/light_blue"
     android:elevation="0dp"
-    android:theme="@style/Base.ThemeOverlay.AppCompat.Dark" />
+    android:theme="@style/AppTheme.AppBarOverlay" />

@@ -35,17 +35,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             return compactCalendarTab;
         }
 
-        else if(position==1) {
+        else {
             Tab3 tab3 = new Tab3();
 
             return tab3;
         }
-        else{
 
-            Tab2 tab2 = new Tab2();
-            return tab2;
-
-        }
     }
 
     @Override

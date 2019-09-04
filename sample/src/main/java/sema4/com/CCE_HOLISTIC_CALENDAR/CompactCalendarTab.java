@@ -114,7 +114,7 @@ public class CompactCalendarTab extends Fragment {
         //Create a progress bar for loading from firebase
         progress = ProgressDialog.show(getContext(), "Please Wait",
                 "Fetching data", true);
-
+        textView.setText("No Events");
 
         //check internet connectivity
         new Thread(new Runnable() {
@@ -421,17 +421,6 @@ public class CompactCalendarTab extends Fragment {
 
         logEventsByMonth(compactCalendarView);
 
-        // below line will display Sunday as the first day of the week
-//         compactCalendarView.setShouldShowMondayAsFirstDay(false);
-
-        // disable scrolling calendar
-        // compactCalendarView.shouldScrollMonth(false);
-
-        // show days from other months as greyed out days
-        // compactCalendarView.displayOtherMonthDays(true);
-
-        // show Sunday as first day of month
-//         compactCalendarView.setShouldShowMondayAsFirstDay(false);
 //set initial title
         currentMonthTextView=mainTabView.findViewById(R.id.currentMonthTextView);
         currentMonthTextView.setText(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
@@ -449,25 +438,13 @@ public class CompactCalendarTab extends Fragment {
                 if (bookingsFromMap != null) {
                     Log.d(TAG, bookingsFromMap.toString());
 
-                    textView.setText("");
+                    textView.setText("No Events");
                     for (Event booking : bookingsFromMap) {
 
 
 
                         textView.setText(booking.getData().toString());
-                        if(((String) booking.getData()).contains("Holiday")){
 
-                            textView.setTextColor(Color.RED);
-
-
-                        }
-                        else{
-
-                            textView.setTextColor(Color.parseColor("#303F9F"));
-
-
-
-                        }
                     }
 
                 }
@@ -670,8 +647,8 @@ public class CompactCalendarTab extends Fragment {
                 if (!data[month - 7][i].equals("empty")) {
                     int r = 48, g = 63, b = 159;
                     if (data[month - 7][i].contains("Holiday")) {
-                        r = 255;
-                        g = 0;
+                        r = 221;
+                        g = 48;
                         b = 0;
                     }
                     List<Event> events = Arrays.asList(new Event(Color.argb(255, r, g, b), timeInMillis, data[month - 7][i]));

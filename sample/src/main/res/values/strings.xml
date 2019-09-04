@@ -2,7 +2,7 @@
     <string name="app_name">CCE_HOLISTIC_CALENDER</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Optional</string>
+    <string name="action_settings">About Us</string>
     <string name="todo">TODO</string>
     <string name="cce_holistic_calender">CCE Holistic Calendar</string>
     <string name="all_dates_marked_as_red_and_with_red_dot_are_hoiday">All dates marked as red and with red dot are hoiday.</string>
