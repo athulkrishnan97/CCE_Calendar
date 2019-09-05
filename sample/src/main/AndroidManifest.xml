@@ -8,8 +8,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/icon1"
-        android:label="CCE HOLISTIC CALENDAR"
+        android:icon="@mipmap/ic_launcher"
+        android:label="CCE Holistic Calendar"
         android:theme="@style/AppTheme"
         android:versionCode="11"
         tools:ignore="GoogleAppIndexingWarning">
@@ -18,7 +18,7 @@
         <activity
             android:name=".splash"
             android:configChanges="orientation|keyboardHidden"
-            android:label="CCE HOLISTIC CALENDER"
+            android:label="CCE Holistic Calendar"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
