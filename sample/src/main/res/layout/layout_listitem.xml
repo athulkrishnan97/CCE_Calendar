@@ -13,10 +13,12 @@
 
     <TextView
         android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="215dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="false"
         android:layout_marginLeft="10dp"
+        android:layout_marginEnd="91dp"
         android:layout_toRightOf="@+id/image"
         android:gravity="left"
         android:text="This is a notification"
@@ -29,10 +31,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/date"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="3dp"
         android:layout_toRightOf="@+id/image"
+
         android:gravity="left"
         android:text="This is the body"
         android:textColor="#000"

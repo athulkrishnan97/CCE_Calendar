@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
 
       ////////////////////////////////////////////////////////////
-        Bundle b = getIntent().getExtras(); //get bundle data from the passed json via notification push
+        Bundle b = getIntent().getExtras(); //get bundle data from the passed json via recieved Notification
         try {
 
             //Check to see if the app was opened from an notification

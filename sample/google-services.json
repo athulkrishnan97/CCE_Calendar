@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "318022036761",
+    "firebase_url": "https://cce-calender-19.firebaseio.com",
+    "project_id": "cce-calender-19",
+    "storage_bucket": "cce-calender-19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318022036761:android:d40a3f6aed28428c",
+        "android_client_info": {
+          "package_name": "sema4.com.CCE_HOLISTIC_CALENDAR"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318022036761-63uvigp91o5jq4d5k9vdhnes0kse6vsv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sema4.com.CCE_HOLISTIC_CALENDAR",
+            "certificate_hash": "8a3c67f0f8d88e0712576cc4d1d94f6b85e36211"
+          }
+        },
+        {
+          "client_id": "318022036761-783im51hc6s5jdg0qnunttfensbv1d9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM5l4IjJEgMW0CLWB8LIXo2TLy1sbWbVA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318022036761-783im51hc6s5jdg0qnunttfensbv1d9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
