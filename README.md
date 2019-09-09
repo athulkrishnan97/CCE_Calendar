@@ -18,7 +18,7 @@ You'll have to create a firebase account (http://firebase.google.com) which is r
 # Contributing  
 We welcome all kinds of contributions from our peers in Christ College of Engineering which this app has been developed for. If there's something that can be improved upon that you're capable of, please feel free to raise a pull request and we'll merge those changes after proper testing.
 
-If you're aiming to do more than just layout changes, you'll need to have the database strcture that we're using. The database.json in this repository will have what you're looking for. It can be imported into your own firebase database in a few clicks to create an identical database as of the official app. Changes you make in that database will reflect immediately on your version of the app.
+If you're aiming to do more than just layout changes, you'll need to have the database structure that we're using. The database.json in this repository will have what you're looking for. It can be imported into your own firebase database in a few clicks to create an identical database as of the official app. Changes you make in that database will reflect immediately on your version of the app.
 
 
 
