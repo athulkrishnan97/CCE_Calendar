@@ -1,22 +1,24 @@
 # CCE Holistic Calendar
-CCE Holistic Calender is based upon CompactCalendarView which is a simple calendar view that provides scrolling between months. It's based on Java's Date and Calendar classes. Still under active development.
+CCE Holistic Calender is based upon CompactCalendarView which is a simple calendar view that provides scrolling between months. It's based on Java's Date and Calendar classes. We've adapted this calenderview to our needs and added the events of Christ College of Engineering to it. There is also a notification tab which shows the latest updates in realtime.The app is still under active development.
 
 
 # Database
 
-We use the database from google firebase toolkit to store data on the cloud. Unlike SQL databases, firebase database uses a simple json tree-like structure that can be used much easier and has better integration.
+We use the database from google firebase toolkit to store data on the cloud. Unlike SQL databases, firebase database uses a simple json tree-like structure that can be used much easier and has better integration. If you don't know what json is, just think it as of a text document with key:value pairs. The database we use is "Firebase Realtime Database" and NOT "Firebase Firestore". Please do not confuse the two as both of them are found in firebase website side by side.
 
 # Compiling
 
-The master branch can be directly downloaded and compiled without much preparations. However, you will need a google-services.json which links the app with external google services such as firebase database and firbase cloud messaging. 
+The master branch can be directly downloaded and compiled without much setting up. However, you will need a "google-services.json" which links the app with external google services such as firebase database and firbase cloud messaging (for notification push). 
 
-This particular file is not uploaded in this repository as it contains sensitive data. You'll have to create a firebase account (which is really easy btw) and download the google-services.json for that particular account and copy it to the "sample" directory. The app should then compile succesfully.   
+This particular file is not uploaded in this repository as it contains sensitive data. If you try to compile the app without it, Android Studio will throw a file not found error. 
+
+You'll have to create a firebase account (http://firebase.google.com) which is really easy, follow the instructions to add an app, and download the google-services.json for that particular account and copy it to the "sample" directory. The app should then compile succesfully.
 
 
 # Contributing  
 We welcome all kinds of contributions from our peers in Christ College of Engineering which this app has been developed for. If there's something that can be improved upon that you're capable of, please feel free to raise a pull request and we'll merge those changes after proper testing.
 
-If you're aiming to do more than just layout changes, you'll need to have the database strcture that we're using. The database.json in this repository will have what you're looking for. It can be imported into your own firebase database in a few clicks to create an identical database as of the official app.
+If you're aiming to do more than just layout changes, you'll need to have the database strcture that we're using. The database.json in this repository will have what you're looking for. It can be imported into your own firebase database in a few clicks to create an identical database as of the official app. Changes you make in that database will reflect immediately on your version of the app.
 
 
 
