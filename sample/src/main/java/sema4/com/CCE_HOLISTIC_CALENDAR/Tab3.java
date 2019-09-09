@@ -28,9 +28,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-
-
-
+/**
+This is the notification tab
+**/
 public class Tab3 extends Fragment {
 
     private DatabaseReference myRef1;
@@ -41,12 +41,13 @@ public class Tab3 extends Fragment {
     private View v;
     private FirebaseDatabase database;
     RecyclerViewAdapter adapter;
-    String[][] notificationArray;
-    int iterator =0;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.tab_3,container,false);
+
+        //Gets the online database
         database = FirebaseDatabase.getInstance();
         myRef1 = database.getReference().child("notificationList");
 
@@ -57,9 +58,7 @@ public class Tab3 extends Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
-                    //String value = dataSnapshot.getValue(String.class);
-                    // Log.d(TAG, "Value is: " + value);
-                    //Toast.makeText(getContext(),value,Toast.LENGTH_LONG).show();
+
                     dateArrayList.clear();
                     bodyArrayList.clear();
                     notificationObjectsArrayList.clear();
@@ -105,15 +104,14 @@ public class Tab3 extends Fragment {
             if ((String)singleUser.get("order")!=null) {
                 notificationObjectsArrayList.add(new NotificationObject(Integer.parseInt((String) singleUser.get("order")), (String) singleUser.get("date"), (String) singleUser.get("body")));
             }
-            //dateArrayList.add((String) singleUser.get("date"));
-            //bodyArrayList.add((String) singleUser.get("body"));
+
         }
 
         NotificationObject[] notificationObjectsArray=new NotificationObject[(notificationObjectsArrayList.size())];
         notificationObjectsArrayList.toArray(notificationObjectsArray);
 
-        //Toast.makeText(getContext(),notificationObjectsArray[0].date,Toast.LENGTH_LONG).show();
 
+        //The below block of code sorts the notification list in the notification tab
         Arrays.sort(notificationObjectsArray, new Comparator<NotificationObject>(){
             @Override
             public int compare(NotificationObject noti_1, NotificationObject noti_2){
@@ -152,32 +150,7 @@ public class Tab3 extends Fragment {
 //        //bodyArrayList.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
 //        dateArrayList.add("Havasu Falls");
 //
-//        //bodyArrayList.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-//        dateArrayList.add("Trondheim");
 //
-//        //bodyArrayList.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-//        dateArrayList.add("Portugal");
-//
-//        //bodyArrayList.add("https://i.redd.it/j6myfqglup501.jpg");
-//        dateArrayList.add("Rocky Mountain National Park");
-//
-//
-//       // bodyArrayList.add("https://i.redd.it/0h2gm1ix6p501.jpg");
-//        dateArrayList.add("Mahahual");
-//
-//        //bodyArrayList.add("https://i.redd.it/k98uzl68eh501.jpg");
-//        dateArrayList.add("Frozen Lake");
-//
-//
-//       // bodyArrayList.add("https://i.redd.it/glin0nwndo501.jpg");
-//        dateArrayList.add("White Sands Desert");
-//
-//        //bodyArrayList.add("https://i.redd.it/obx4zydshg601.jpg");
-//        dateArrayList.add("Austrailia");
-//
-//        //bodyArrayList.add("https://i.imgur.com/ZcLLrkY.jpg");
-//        dateArrayList.add("Washington");
-//        dateArrayList.add("Puthenchira");
 //
 //
 //    }

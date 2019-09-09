@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
-
-
-
+/**
+Shows the splash screen with the icon on app startup
+**/
 public class splash extends Activity {
 
     Handler handler;

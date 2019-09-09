@@ -1,9 +1,8 @@
 package sema4.com.CCE_HOLISTIC_CALENDAR.Firebase_models;
-import com.google.firebase.database.Exclude;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 // [START post_class]
 @IgnoreExtraProperties

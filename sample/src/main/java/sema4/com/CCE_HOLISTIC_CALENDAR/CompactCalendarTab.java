@@ -65,7 +65,7 @@ public class CompactCalendarTab extends Fragment {
     private ArrayList<String> month5=new ArrayList<>();
     private ProgressDialog progress;
     private TextView textView;
-    TextView currentMonthTextView;
+    private TextView currentMonthTextView;
 
 
 
@@ -83,6 +83,12 @@ public class CompactCalendarTab extends Fragment {
         myRef3 = database.getReference().child("schedule").child("october");
         myRef4 = database.getReference().child("schedule").child("november");
         myRef5 = database.getReference().child("schedule").child("december");
+
+        /*
+         * The below lines of code dictate which notifications will be shown to the user. If the topic is "all" then the entire userbase including the users from the play store will
+         * recieve the notififcation. All the versions uploaded to the playstore will have subscribed to the topic "all". For testing purposes compile the app with the "test" topic
+
+        */
 
         //FirebaseMessaging.getInstance().subscribeToTopic("test");
         FirebaseMessaging.getInstance().subscribeToTopic("all");
@@ -481,7 +487,7 @@ public class CompactCalendarTab extends Fragment {
 
 
         // uncomment below to show indicators above small indicator events
-        // compactCalendarView.shouldDrawIndicatorsBelowSelectedDays(true);
+        //compactCalendarView.shouldDrawIndicatorsBelowSelectedDays(true);
 
         // uncomment below to open onCreate
 //        openCalendarOnCreate(v);
@@ -594,13 +600,7 @@ public class CompactCalendarTab extends Fragment {
 
 
 
-            //List<Event> events = getEvents(timeInMillis, iterator);
-//            String[][] data = new String[][] {{"COMMENCEMENT OF CLASSES","","VALUE ADDED PROGRAM","","","","","","FRESHERS DAY","","Holiday - BAKRID","","","","Holiday - INDEPENDENCE DAY","ADDON","ADDON","","MODULE TEST 1","","","","Holiday - SREEKRISHNA JAYANTHI","","","REMEDIAL CLASS","REMEDIAL CLASS","Holiday - AYANKALI JAYANTHI","","","ADDRESS BY PRINCIPAL/HOD"},
-//                                            {"","SERIES 1","","","","ONAM CELEBRATION","Holiday - ONAM VACATION STARTS","","Holiday - MUHRAM","Holiday","Holiday","Holiday","Holiday","","","REOPENING, EXTRA ADDON","","","","PTA MEETING","Holiday - SREENARAYANA GURU SAMADHI","","REMEDIAL BASED ON SERIES 1","","","","FILM CLUB / LITERARY CLUB ACTIVITIES","","","",""},
-//                                             {"","Holiday - GANDHI JAYANTHI","","VALUE ADDED PROGRAM","SPORTS DAY","","Holiday - MAHANAVAMI","","","","","","","SERIES II","","","","","SOCIALLY COMMITTED ACTIVITY","","REMEDIAL BASED ON SERIES II","","","","","","Holiday - DEEPAVALI","","","","", },
-//                                             { "VALUE ADDED PROGRAM","","","","","SERIES III","","","","","","","","","CLASSES END","","","REMEDIAL CLASS STARTS","","","","","","","","","","","","","","","","","" },
-//                                            {"","","","","","","","","","","","","","","","","","","","","","", "Holiday - CHRISTMAS VACATION STARTS","Holiday","Holiday - CHRISTMAS","Holiday","Holiday","","","","",}
-//                                                    };
+
 
             String[][] data = new String[5][31];
 
@@ -658,12 +658,10 @@ public class CompactCalendarTab extends Fragment {
 
             catch (NullPointerException e){
 
-                // If the below condition is not checked, it would create an infinite amount of toasts in devices lower than lollipop
 
-                if(Build.VERSION.SDK_INT>19) {
 
                     Toast.makeText(getContext(), "Database communication error. Make sure that you have the latest version of the app", Toast.LENGTH_LONG).show();
-                }
+
 
             }
 

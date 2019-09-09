@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 
 /**
- * Created by User on 1/2/2018.
+ * This activity is not used as of 09-09-2019. Kept for future uses. Do not delete
  */
 
 public class GalleryActivity extends AppCompatActivity {

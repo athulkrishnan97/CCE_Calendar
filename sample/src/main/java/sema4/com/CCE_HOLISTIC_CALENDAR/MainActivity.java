@@ -29,6 +29,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Global declarations
+
     private Toolbar toolbar;
     private ViewPager pager;
     private ViewPagerAdapter adapter;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     boolean jumpToNotificationOnLaunch;
     String appPackageName="sema4.com.CCE_HOLISTIC_CALENDAR";
 
-    //vars
+
 
 
 
@@ -61,15 +63,16 @@ public class MainActivity extends AppCompatActivity {
 
             //Check to see if the app was opened from an notification
             String goToNotification = b.getString("Go to Notification Tab");
+            // Check to see whether a new update tag was present in the notification
             String newUpdateAvailable =b.getString("Update Notification");
 
-
+            //Directly go to notification tab skipping the splash screen and calendar tab
             if(goToNotification.equals("true")){
 
             jumpToNotificationOnLaunch=true;
 
             }
-
+            // Go to play store on clicking the notification
             if(newUpdateAvailable.equals("true")){
                 try {
                     Intent appStoreIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));
@@ -139,6 +142,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+    //The below two blocks of code handles the button press on the "three dots" on the top right of the app
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -146,14 +152,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        int id = item.getItemId();
         if (id == R.id.action_settings) {
 
             Intent myIntent = new Intent(MainActivity.this,  AboutUs.class);

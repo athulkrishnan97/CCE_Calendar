@@ -3,7 +3,9 @@ package sema4.com.CCE_HOLISTIC_CALENDAR;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-
+ /**
+    Handles the display of  tab titles on the top of the app.
+ **/
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     CharSequence titles[];
