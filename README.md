@@ -1,3 +1,8 @@
+
+![Alt text](ss.png?raw=true "Import Database")
+
+
+
 # CCE Holistic Calendar
 CCE Holistic Calender is based upon CompactCalendarView which is a simple calendar view that provides scrolling between months. It's based on Java's Date and Calendar classes. We've adapted this calenderview to our needs and added the events of Christ College of Engineering to it. There is also a notification tab which shows the latest updates in realtime.The app is still under active development.
 
@@ -12,13 +17,25 @@ The master branch can be directly downloaded and compiled without much setting u
 
 This particular file is not uploaded in this repository as it contains sensitive data. If you try to compile the app without it, Android Studio will throw a file not found error. 
 
-You'll have to create a firebase account (http://firebase.google.com) which is really easy, follow the instructions to add an app, and download the google-services.json for that particular account and copy it to the "sample" directory. The app should then compile succesfully.
+
+
+
+You'll have to create a firebase account (http://firebase.google.com) which is really easy, follow the instructions to add an app, and download the google-services.json for that particular account and copy it to the "sample" directory.
+
+Android Package Name: "sema4.com.CCE_HOLISTIC_CALENDAR"
+
+The app should then compile succesfully.
+![Alt text](add_firebase.jpg?raw=true "Add app")
 
 
 # Contributing  
 We welcome all kinds of contributions from our peers in Christ College of Engineering which this app has been developed for. If there's something that can be improved upon that you're capable of, please feel free to raise a pull request and we'll merge those changes after proper testing.
 
-If you're aiming to do more than just layout changes, you'll need to have the database structure that we're using. The database.json in this repository will have what you're looking for. It can be imported into your own firebase database in a few clicks to create an identical database as of the official app. Changes you make in that database will reflect immediately on your version of the app.
+If you're aiming to do more than just layout changes, you'll need to have the database structure that we're using. The database.json in this repository will have what you're looking for. It can be imported into your own firebase database in a few clicks to create an identical database as of the official app.
+![Alt text](import_into_database.png?raw=true "Import Database")
+Changes you make in that database will reflect immediately on your version of the app.
+
+
 
 
 
