@@ -4,7 +4,7 @@
 
 
 # CCE Holistic Calendar
-CCE Holistic Calender is based upon CompactCalendarView which is a simple calendar view that provides scrolling between months. It's based on Java's Date and Calendar classes. We've adapted this calenderview to our needs and added the events of Christ College of Engineering to it. There is also a notification tab which shows the latest updates in realtime.The app is still under active development.
+CCE Holistic Calender is based upon CompactCalendarView which is a simple calendar view that provides scrolling between months. It's based on Java's Date and Calendar classes. We've adapted this calenderview to our needs and added the events of Christ College of Engineering to it. There is also a notification tab which shows the latest updates in realtime. The app is still under active development.
 
 
 # Database
