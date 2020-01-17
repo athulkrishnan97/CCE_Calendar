@@ -5,7 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.ActionBar;
@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -49,7 +50,6 @@ public class CompactCalendarTab extends Fragment {
     private Calendar currentCalender = Calendar.getInstance(Locale.getDefault());
     private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
-    private boolean shouldShow = false;
     private CompactCalendarView compactCalendarView;
     private ActionBar toolbar;
     private FirebaseDatabase database;
@@ -78,17 +78,16 @@ public class CompactCalendarTab extends Fragment {
         View mainTabView = inflater.inflate(R.layout.main_tab,container,false);
         textView=mainTabView.findViewById(R.id.textView);
         database = FirebaseDatabase.getInstance();
-        myRef1 = database.getReference().child("schedule").child("august");
-        myRef2 = database.getReference().child("schedule").child("september");
-        myRef3 = database.getReference().child("schedule").child("october");
-        myRef4 = database.getReference().child("schedule").child("november");
-        myRef5 = database.getReference().child("schedule").child("december");
+        myRef1 = database.getReference().child("schedule").child("month1");
+        myRef2 = database.getReference().child("schedule").child("month2");
+        myRef3 = database.getReference().child("schedule").child("month3");
+        myRef4 = database.getReference().child("schedule").child("month4");
+        myRef5 = database.getReference().child("schedule").child("month1"); // No idea why this is needed but won't work without it. Should look into it.
 
         /*
          * The below lines of code dictate which notifications will be shown to the user. If the topic is "all" then the entire userbase including the users from the play store will
-         * recieve the notififcation. All the versions uploaded to the playstore will have subscribed to the topic "all". For testing purposes compile the app with the "test" topic
-
-        */
+         * recieve the notififcation. All the versions uploaded to the playstore will/Must have subscribed to the topic "all". For testing purposes compile the app with the "test" topic
+         */
 
         //FirebaseMessaging.getInstance().subscribeToTopic("test");
         FirebaseMessaging.getInstance().subscribeToTopic("all");
@@ -105,7 +104,7 @@ public class CompactCalendarTab extends Fragment {
         // below allows you to configure color for the current day in the month
         // compactCalendarView.setCurrentDayBackgroundColor(getResources().getColor(R.color.black));
         // below allows you to configure colors for the current day the user has selected
-         compactCalendarView.setCurrentSelectedDayBackgroundColor(getResources().getColor(R.color.light_blue));
+        compactCalendarView.setCurrentSelectedDayBackgroundColor(getResources().getColor(R.color.light_blue));
         compactCalendarView.setUseThreeLetterAbbreviation(false);
         compactCalendarView.setFirstDayOfWeek(Calendar.SUNDAY);
         compactCalendarView.setIsRtl(false);
@@ -406,7 +405,7 @@ public class CompactCalendarTab extends Fragment {
                 month5.add(post5.day30);
                 month5.add(post5.day31);
 
-                loadEventsForYear(2019);
+                loadEventsForYear(2020);
                 progress.dismiss();
 
             }
@@ -425,7 +424,7 @@ public class CompactCalendarTab extends Fragment {
 
         compactCalendarView.invalidate();
 
-        logEventsByMonth(compactCalendarView);
+        //logEventsByMonth(compactCalendarView);
 
 //set initial title
         currentMonthTextView=mainTabView.findViewById(R.id.currentMonthTextView);
@@ -495,40 +494,6 @@ public class CompactCalendarTab extends Fragment {
         return mainTabView;
     }
 
-    @NonNull
-    private View.OnClickListener getCalendarShowLis() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!compactCalendarView.isAnimating()) {
-                    if (shouldShow) {
-                        compactCalendarView.showCalendar();
-                    } else {
-                        compactCalendarView.hideCalendar();
-                    }
-                    shouldShow = !shouldShow;
-                }
-            }
-        };
-    }
-
-    @NonNull
-    private View.OnClickListener getCalendarExposeLis() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!compactCalendarView.isAnimating()) {
-                    if (shouldShow) {
-                        compactCalendarView.showCalendarWithAnimation();
-                    } else {
-                        compactCalendarView.hideCalendarWithAnimation();
-                    }
-                    shouldShow = !shouldShow;
-                }
-            }
-        };
-    }
-
     private void openCalendarOnCreate(View v) {
         final RelativeLayout layout = v.findViewById(R.id.main_content);
         ViewTreeObserver vto = layout.getViewTreeObserver();
@@ -554,22 +519,60 @@ public class CompactCalendarTab extends Fragment {
         // toolbar.setTitle(dateFormatForMonth.format(new Date()));
     }
 
-    private void loadEvents() {
-        addEvents(-1, -1);
-        addEvents(Calendar.DECEMBER, -1);
-        addEvents(Calendar.AUGUST, -1);
-    }
 
+    private String[][] data;
     private void loadEventsForYear(int year) {
-        for(int i=7;i<12;i++)
-        addEvents(i, 2019);
+         data= new String[5][31];
+
+        int z=0;
+        for (String s:month1){
+
+            data[0][z]=s;
+
+            z++;
+
+
+        }
+        z=0;
+        for (String s:month2){
+
+            data[1][z]=s;
+
+            z++;
+        }
+        z=0;
+        for (String s:month3){
+
+            data[2][z]=s;
+            z++;
+        }
+        z=0;
+        for (String s:month4){
+
+            data[3][z]=s;
+            z++;
+        }
+        z=0;
+        for (String s:month5){
+
+            data[4][z]=s;
+            z++;
+
+        }
+
+
+
+        for(int i=0;i<4;i++)
+            addEvents(i, year);
+
+
     }
 
 
     private void logEventsByMonth(CompactCalendarView compactCalendarView) {
         currentCalender.setTime(new Date());
-        currentCalender.set(Calendar.DAY_OF_MONTH, 1);
-        currentCalender.set(Calendar.MONTH, Calendar.AUGUST);
+        currentCalender.set(Calendar.DAY_OF_MONTH,1);
+        currentCalender.set(Calendar.MONTH, Calendar.JANUARY);
         List<String> dates = new ArrayList<>();
         for (Event e : compactCalendarView.getEventsForMonth(new Date())) {
             dates.add(dateFormatForDisplaying.format(e.getTimeInMillis()));
@@ -596,71 +599,26 @@ public class CompactCalendarTab extends Fragment {
             setToMidnight(currentCalender);
             long timeInMillis = currentCalender.getTimeInMillis();
 
-
-
-
-
-
-
-            String[][] data = new String[5][31];
-
-            int z=0;
-            for (String s:month1){
-
-                data[0][z]=s;
-
-
-
-                z++;
-
-
-            }
-            z=0;
-            for (String s:month2){
-
-                data[1][z]=s;
-
-                z++;
-            }
-            z=0;
-            for (String s:month3){
-
-                data[2][z]=s;
-                z++;
-            }
-            z=0;
-            for (String s:month4){
-
-                data[3][z]=s;
-                z++;
-            }
-            z=0;
-            for (String s:month5){
-
-                data[4][z]=s;
-                z++;
-
-            }
-
             try {
 
-                if (!data[month - 7][i].equals("empty")) {
+                if (!data[month][i].equals("empty")) {
                     int r = 48, g = 63, b = 159;
-                    if (data[month - 7][i].contains("Holiday")) {
+                    if (data[month][i].contains("Holiday")) {
                         r = 221;
                         g = 48;
                         b = 0;
                     }
-                    List<Event> events = Arrays.asList(new Event(Color.argb(255, r, g, b), timeInMillis, data[month - 7][i]));
-                    compactCalendarView.addEvents(events);
+                    List<Event> event = Collections.singletonList(new Event(Color.argb(255, r, g, b), timeInMillis, data[month][i]));
+                    compactCalendarView.addEvents(event);
                 }
             }
 
             catch (NullPointerException e){
+                Log.e("E",e.toString());
 
+                Toast.makeText(getContext(),"month = "+month+"Date is "+i,Toast.LENGTH_LONG).show();
 
-
-                    Toast.makeText(getContext(), "Database communication error. Make sure that you have the latest version of the app", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "Database communication error. Make sure that you have the latest version of the app", Toast.LENGTH_LONG).show();
 
 
             }
@@ -677,7 +635,7 @@ public class CompactCalendarTab extends Fragment {
         calendar.set(Calendar.MILLISECOND, 0);
     }
 
-    public boolean isInternetAvailable(String address, int port, int timeoutMs) {
+    private boolean isInternetAvailable(String address, int port, int timeoutMs) {
         try {
 
             Socket sock = new Socket();
@@ -692,7 +650,7 @@ public class CompactCalendarTab extends Fragment {
     }
 
 
-    public void Toast(final String s){
+    private void Toast(final String s){
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
@@ -700,7 +658,7 @@ public class CompactCalendarTab extends Fragment {
         });}
 
 
-    public static int getScreenHeight() {
+    private static int getScreenHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
