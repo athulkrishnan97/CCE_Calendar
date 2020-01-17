@@ -89,8 +89,8 @@ public class CompactCalendarTab extends Fragment {
          * recieve the notififcation. All the versions uploaded to the playstore will/Must have subscribed to the topic "all". For testing purposes compile the app with the "test" topic
          */
 
-        //FirebaseMessaging.getInstance().subscribeToTopic("test");
-        FirebaseMessaging.getInstance().subscribeToTopic("all");
+        FirebaseMessaging.getInstance().subscribeToTopic("test");
+        //FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         //Crashlytics.getInstance().crash(); // Force a crash
 
@@ -614,11 +614,11 @@ public class CompactCalendarTab extends Fragment {
             }
 
             catch (NullPointerException e){
-                Log.e("E",e.toString());
+                //Log.e("E",e.toString());
 
-                Toast.makeText(getContext(),"month = "+month+"Date is "+i,Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),"month = "+month+"Date is "+i,Toast.LENGTH_LONG).show();
 
-                //Toast.makeText(getContext(), "Database communication error. Make sure that you have the latest version of the app", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Database communication error. Make sure that you have the latest version of the app", Toast.LENGTH_LONG).show();
 
 
             }
