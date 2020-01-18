@@ -8,6 +8,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 
 public class Post {
+
+
     public String day1;
     public String day2;
     public String day3;

@@ -3,9 +3,9 @@ package sema4.com.CCE_HOLISTIC_CALENDAR;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.ActionBar;
@@ -14,29 +14,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import sema4.com.CCE_HOLISTIC_CALENDAR.Firebase_models.Post;
 import sema4.com.CCE_HOLISTIC_CALENDAR.domain.Event;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,13 +44,6 @@ public class CompactCalendarTab extends Fragment {
     private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView compactCalendarView;
-    private ActionBar toolbar;
-    private FirebaseDatabase database;
-    private DatabaseReference myRef1;
-    private DatabaseReference myRef2;
-    private DatabaseReference myRef3;
-    private DatabaseReference myRef4;
-    private DatabaseReference myRef5;
     private ArrayList<String> month1=new ArrayList<>();
     private ArrayList<String> month2=new ArrayList<>();
     private ArrayList<String> month3=new ArrayList<>();
@@ -67,7 +53,9 @@ public class CompactCalendarTab extends Fragment {
     private TextView textView;
     private TextView currentMonthTextView;
 
-
+    private int counter=0;
+    private int year;
+    private int startingMonth;
 
 
 
@@ -77,20 +65,21 @@ public class CompactCalendarTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainTabView = inflater.inflate(R.layout.main_tab,container,false);
         textView=mainTabView.findViewById(R.id.textView);
-        database = FirebaseDatabase.getInstance();
-        myRef1 = database.getReference().child("schedule").child("month1");
-        myRef2 = database.getReference().child("schedule").child("month2");
-        myRef3 = database.getReference().child("schedule").child("month3");
-        myRef4 = database.getReference().child("schedule").child("month4");
-        myRef5 = database.getReference().child("schedule").child("month1"); // No idea why this is needed but won't work without it. Should look into it.
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef1 = database.getReference().child("schedule").child("month1");
+        DatabaseReference myRef2 = database.getReference().child("schedule").child("month2");
+        DatabaseReference myRef3 = database.getReference().child("schedule").child("month3");
+        DatabaseReference myRef4 = database.getReference().child("schedule").child("month4");
+        DatabaseReference myRef5 = database.getReference().child("schedule").child("month5");
+        DatabaseReference currentSetup=database.getReference().child("currentSetup");
 
         /*
          * The below lines of code dictate which notifications will be shown to the user. If the topic is "all" then the entire userbase including the users from the play store will
-         * recieve the notififcation. All the versions uploaded to the playstore will/Must have subscribed to the topic "all". For testing purposes compile the app with the "test" topic
+         * receive the notification. All the versions uploaded to the playstore will/Must have subscribed to the topic "all". For testing purposes compile the app with the "test" topic
          */
 
-        FirebaseMessaging.getInstance().subscribeToTopic("test");
-        //FirebaseMessaging.getInstance().subscribeToTopic("all");
+        //FirebaseMessaging.getInstance().subscribeToTopic("test");
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         //Crashlytics.getInstance().crash(); // Force a crash
 
@@ -141,7 +130,104 @@ public class CompactCalendarTab extends Fragment {
 
 
 
-        myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+
+
+
+
+        compactCalendarView.invalidate();
+
+        //logEventsByMonth(compactCalendarView);
+
+//set initial title
+        currentMonthTextView=mainTabView.findViewById(R.id.currentMonthTextView);
+        currentMonthTextView.setText(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+
+        ActionBar toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        toolbar.setTitle("CCE Holistic Calendar");
+
+        //set title on calendar scroll
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked){
+                currentMonthTextView.setText(dateFormatForMonth.format(dateClicked));
+                List<Event> bookingsFromMap = compactCalendarView.getEvents(dateClicked);
+                Log.d(TAG, "inside onclick " + dateFormatForDisplaying.format(dateClicked));
+                if (bookingsFromMap != null) {
+                    Log.d(TAG, bookingsFromMap.toString());
+
+                    textView.setText("No Events");
+                    for (Event booking : bookingsFromMap) {
+
+
+
+                        textView.setText(booking.getData().toString());
+
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+
+                currentMonthTextView.setText(dateFormatForMonth.format(firstDayOfNewMonth));
+                onDayClick(firstDayOfNewMonth);
+            }
+        });
+
+
+        try {
+            currentSetup.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    year = Integer.parseInt((String) dataSnapshot.child("year").getValue());
+                    startingMonth = Integer.parseInt((String) dataSnapshot.child("startingMonth").getValue());
+                    getDataFromFirebase(myRef1, myRef2, myRef3, myRef4, myRef5,year);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        catch (Exception e){
+            Toast.makeText(getContext(),"Database Communication Error",Toast.LENGTH_LONG).show();
+        }
+
+
+
+
+
+
+
+        compactCalendarView.setAnimationListener(new CompactCalendarView.CompactCalendarAnimationListener() {
+            @Override
+            public void onOpened() {
+            }
+
+            @Override
+            public void onClosed() {
+            }
+        });
+
+
+
+
+        // uncomment below to show indicators above small indicator events
+        //compactCalendarView.shouldDrawIndicatorsBelowSelectedDays(true);
+
+
+
+        return mainTabView;
+    }
+
+
+    public void getDataFromFirebase(DatabaseReference myRef1,DatabaseReference myRef2,DatabaseReference myRef3,DatabaseReference myRef4,DatabaseReference myRef5,int year){
+        myRef1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -185,7 +271,12 @@ public class CompactCalendarTab extends Fragment {
                 month1.add(post1.day29);
                 month1.add(post1.day30);
                 month1.add(post1.day31);
-
+                counter++;
+                if(counter==5){
+                    loadEventsForYear(year);
+                    progress.dismiss();
+                    counter=0;
+                }
 
 
             }
@@ -197,7 +288,7 @@ public class CompactCalendarTab extends Fragment {
             }
         });
 
-        myRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -206,9 +297,6 @@ public class CompactCalendarTab extends Fragment {
                 // Log.d(TAG, "Value is: " + value);
                 //Toast.makeText(getContext(),value,Toast.LENGTH_LONG).show();
                 Post post2 = dataSnapshot.getValue(Post.class);
-
-
-
 
                 month2.add(post2.day1);
                 month2.add(post2.day2);
@@ -241,7 +329,12 @@ public class CompactCalendarTab extends Fragment {
                 month2.add(post2.day29);
                 month2.add(post2.day30);
                 month2.add(post2.day31);
-
+                counter++;
+                if(counter==5){
+                    loadEventsForYear(year);
+                    progress.dismiss();
+                    counter=0;
+                }
 
 
             }
@@ -254,7 +347,7 @@ public class CompactCalendarTab extends Fragment {
         });
 
 
-        myRef3.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef3.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -295,7 +388,12 @@ public class CompactCalendarTab extends Fragment {
                 month3.add(post3.day29);
                 month3.add(post3.day30);
                 month3.add(post3.day31);
-
+                counter++;
+                if(counter==5){
+                    loadEventsForYear(year);
+                    progress.dismiss();
+                    counter=0;
+                }
 
 
             }
@@ -308,7 +406,7 @@ public class CompactCalendarTab extends Fragment {
         });
 
 
-        myRef4.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef4.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -349,7 +447,12 @@ public class CompactCalendarTab extends Fragment {
                 month4.add(post4.day29);
                 month4.add(post4.day30);
                 month4.add(post4.day31);
-
+                counter++;
+                if(counter==5){
+                    loadEventsForYear(year);
+                    progress.dismiss();
+                    counter=0;
+                }
 
 
             }
@@ -361,7 +464,7 @@ public class CompactCalendarTab extends Fragment {
             }
         });
 
-        myRef5.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef5.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -405,8 +508,12 @@ public class CompactCalendarTab extends Fragment {
                 month5.add(post5.day30);
                 month5.add(post5.day31);
 
-                loadEventsForYear(2020);
-                progress.dismiss();
+                counter++;
+                if(counter==5){
+                    loadEventsForYear(year);
+                    progress.dismiss();
+                    counter=0;
+                }
 
             }
 
@@ -415,100 +522,13 @@ public class CompactCalendarTab extends Fragment {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
+
         });
 
 
-
-
-
-
-        compactCalendarView.invalidate();
-
-        //logEventsByMonth(compactCalendarView);
-
-//set initial title
-        currentMonthTextView=mainTabView.findViewById(R.id.currentMonthTextView);
-        currentMonthTextView.setText(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
-
-        toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        toolbar.setTitle("CCE Holistic Calendar");
-
-        //set title on calendar scroll
-        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
-            @Override
-            public void onDayClick(Date dateClicked){
-                currentMonthTextView.setText(dateFormatForMonth.format(dateClicked));
-                List<Event> bookingsFromMap = compactCalendarView.getEvents(dateClicked);
-                Log.d(TAG, "inside onclick " + dateFormatForDisplaying.format(dateClicked));
-                if (bookingsFromMap != null) {
-                    Log.d(TAG, bookingsFromMap.toString());
-
-                    textView.setText("No Events");
-                    for (Event booking : bookingsFromMap) {
-
-
-
-                        textView.setText(booking.getData().toString());
-
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onMonthScroll(Date firstDayOfNewMonth) {
-
-                currentMonthTextView.setText(dateFormatForMonth.format(firstDayOfNewMonth));
-                onDayClick(firstDayOfNewMonth);
-            }
-        });
-
-
-
-
-
-
-
-
-
-        compactCalendarView.setAnimationListener(new CompactCalendarView.CompactCalendarAnimationListener() {
-            @Override
-            public void onOpened() {
-            }
-
-            @Override
-            public void onClosed() {
-            }
-        });
-
-
-
-
-        // uncomment below to show indicators above small indicator events
-        //compactCalendarView.shouldDrawIndicatorsBelowSelectedDays(true);
-
-        // uncomment below to open onCreate
-//        openCalendarOnCreate(v);
-
-        return mainTabView;
     }
 
-    private void openCalendarOnCreate(View v) {
-        final RelativeLayout layout = v.findViewById(R.id.main_content);
-        ViewTreeObserver vto = layout.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (Build.VERSION.SDK_INT < 16) {
-                    layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                } else {
-                    layout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-                compactCalendarView.showCalendarWithAnimation();
-            }
-        });
-    }
+
 
     @Override
     public void onResume() {
@@ -562,24 +582,14 @@ public class CompactCalendarTab extends Fragment {
 
 
 
-        for(int i=0;i<4;i++)
+        for(int i=startingMonth-1;i<startingMonth+4;i++)
             addEvents(i, year);
 
 
     }
 
 
-    private void logEventsByMonth(CompactCalendarView compactCalendarView) {
-        currentCalender.setTime(new Date());
-        currentCalender.set(Calendar.DAY_OF_MONTH,1);
-        currentCalender.set(Calendar.MONTH, Calendar.JANUARY);
-        List<String> dates = new ArrayList<>();
-        for (Event e : compactCalendarView.getEventsForMonth(new Date())) {
-            dates.add(dateFormatForDisplaying.format(e.getTimeInMillis()));
-        }
-        Log.d(TAG, "Events for Aug with simple date formatter: " + dates);
-        Log.d(TAG, "Events for Aug month using default local and timezone: " + compactCalendarView.getEventsForMonth(currentCalender.getTime()));
-    }
+
 
     private void addEvents(int month, int year) {
         currentCalender.setTime(new Date());
@@ -601,17 +611,18 @@ public class CompactCalendarTab extends Fragment {
 
             try {
 
-                if (!data[month][i].equals("empty")) {
+                if (!data[month-(startingMonth-1)][i].equals("empty")) {
                     int r = 48, g = 63, b = 159;
-                    if (data[month][i].contains("Holiday")) {
+                    if (data[month-(startingMonth-1)][i].contains("Holiday")) {
                         r = 221;
                         g = 48;
                         b = 0;
                     }
-                    List<Event> event = Collections.singletonList(new Event(Color.argb(255, r, g, b), timeInMillis, data[month][i]));
+                    List<Event> event = Collections.singletonList(new Event(Color.argb(255, r, g, b), timeInMillis, data[month-(startingMonth-1)][i]));
                     compactCalendarView.addEvents(event);
                 }
             }
+
 
             catch (NullPointerException e){
                 //Log.e("E",e.toString());
