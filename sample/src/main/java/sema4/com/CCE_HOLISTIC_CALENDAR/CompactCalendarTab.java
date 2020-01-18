@@ -69,10 +69,6 @@ public class CompactCalendarTab extends Fragment {
 
 
 
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainTabView = inflater.inflate(R.layout.main_tab,container,false);
@@ -82,7 +78,7 @@ public class CompactCalendarTab extends Fragment {
         myRef2 = database.getReference().child("schedule").child("month2");
         myRef3 = database.getReference().child("schedule").child("month3");
         myRef4 = database.getReference().child("schedule").child("month4");
-        myRef5 = database.getReference().child("schedule").child("month1"); // No idea why this is needed but won't work without it. Should look into it.
+        myRef5 = database.getReference().child("schedule").child("month5"); // No idea why this is needed but won't work without it. Should look into it.
 
         /*
          * The below lines of code dictate which notifications will be shown to the user. If the topic is "all" then the entire userbase including the users from the play store will
@@ -118,7 +114,7 @@ public class CompactCalendarTab extends Fragment {
 
         //Create a progress bar for loading from firebase
         progress = ProgressDialog.show(getContext(), "Please Wait",
-                "Fetching data", true);
+                "Fetching events", true);
         textView.setText("No Events");
 
         //check internet connectivity
@@ -138,9 +134,6 @@ public class CompactCalendarTab extends Fragment {
         }).start();
 
 
-
-
-
         myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -150,8 +143,6 @@ public class CompactCalendarTab extends Fragment {
                 // Log.d(TAG, "Value is: " + value);
                 //Toast.makeText(getContext(),value,Toast.LENGTH_LONG).show();
                 Post post1 = dataSnapshot.getValue(Post.class);
-
-
 
 
                 month1.add(post1.day1);
@@ -186,7 +177,7 @@ public class CompactCalendarTab extends Fragment {
                 month1.add(post1.day30);
                 month1.add(post1.day31);
 
-
+                loadEventsForYear(2020);
 
             }
 
@@ -206,8 +197,6 @@ public class CompactCalendarTab extends Fragment {
                 // Log.d(TAG, "Value is: " + value);
                 //Toast.makeText(getContext(),value,Toast.LENGTH_LONG).show();
                 Post post2 = dataSnapshot.getValue(Post.class);
-
-
 
 
                 month2.add(post2.day1);
@@ -241,7 +230,6 @@ public class CompactCalendarTab extends Fragment {
                 month2.add(post2.day29);
                 month2.add(post2.day30);
                 month2.add(post2.day31);
-
 
 
             }
@@ -295,7 +283,6 @@ public class CompactCalendarTab extends Fragment {
                 month3.add(post3.day29);
                 month3.add(post3.day30);
                 month3.add(post3.day31);
-
 
 
             }
@@ -371,8 +358,6 @@ public class CompactCalendarTab extends Fragment {
                 //Toast.makeText(getContext(),value,Toast.LENGTH_LONG).show();
                 Post post5 = dataSnapshot.getValue(Post.class);
 
-
-
                 month5. add(post5.day1);
                 month5.add(post5.day2);
                 month5.add(post5.day3);
@@ -405,7 +390,7 @@ public class CompactCalendarTab extends Fragment {
                 month5.add(post5.day30);
                 month5.add(post5.day31);
 
-                loadEventsForYear(2020);
+//                loadEventsForYear(2020);
                 progress.dismiss();
 
             }
@@ -419,14 +404,11 @@ public class CompactCalendarTab extends Fragment {
 
 
 
-
-
-
         compactCalendarView.invalidate();
 
         //logEventsByMonth(compactCalendarView);
 
-//set initial title
+        //set initial title
         currentMonthTextView=mainTabView.findViewById(R.id.currentMonthTextView);
         currentMonthTextView.setText(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
 
@@ -446,8 +428,6 @@ public class CompactCalendarTab extends Fragment {
                     textView.setText("No Events");
                     for (Event booking : bookingsFromMap) {
 
-
-
                         textView.setText(booking.getData().toString());
 
                     }
@@ -463,14 +443,7 @@ public class CompactCalendarTab extends Fragment {
                 onDayClick(firstDayOfNewMonth);
             }
         });
-
-
-
-
-
-
-
-
+        
 
         compactCalendarView.setAnimationListener(new CompactCalendarView.CompactCalendarAnimationListener() {
             @Override
@@ -562,24 +535,24 @@ public class CompactCalendarTab extends Fragment {
 
 
 
-        for(int i=0;i<4;i++)
+        for(int i=0;i<5;i++)
             addEvents(i, year);
 
 
     }
 
 
-    private void logEventsByMonth(CompactCalendarView compactCalendarView) {
-        currentCalender.setTime(new Date());
-        currentCalender.set(Calendar.DAY_OF_MONTH,1);
-        currentCalender.set(Calendar.MONTH, Calendar.JANUARY);
-        List<String> dates = new ArrayList<>();
-        for (Event e : compactCalendarView.getEventsForMonth(new Date())) {
-            dates.add(dateFormatForDisplaying.format(e.getTimeInMillis()));
-        }
-        Log.d(TAG, "Events for Aug with simple date formatter: " + dates);
-        Log.d(TAG, "Events for Aug month using default local and timezone: " + compactCalendarView.getEventsForMonth(currentCalender.getTime()));
-    }
+//    private void logEventsByMonth(CompactCalendarView compactCalendarView) {
+//        currentCalender.setTime(new Date());
+//        currentCalender.set(Calendar.DAY_OF_MONTH,1);
+//        currentCalender.set(Calendar.MONTH, Calendar.JANUARY);
+//        List<String> dates = new ArrayList<>();
+//        for (Event e : compactCalendarView.getEventsForMonth(new Date())) {
+//            dates.add(dateFormatForDisplaying.format(e.getTimeInMillis()));
+//        }
+//        Log.d(TAG, "Events for Aug with simple date formatter: " + dates);
+//        Log.d(TAG, "Events for Aug month using default local and timezone: " + compactCalendarView.getEventsForMonth(currentCalender.getTime()));
+//    }
 
     private void addEvents(int month, int year) {
         currentCalender.setTime(new Date());
