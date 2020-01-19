@@ -11,7 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="CCE Holistic Calendar"
         android:theme="@style/AppTheme"
-        android:versionCode="12"
+        android:versionCode="14"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".AboutUs"></activity>
         <activity android:name=".GalleryActivity" />

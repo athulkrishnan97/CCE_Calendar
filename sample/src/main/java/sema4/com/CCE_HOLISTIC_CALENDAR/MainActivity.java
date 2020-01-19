@@ -67,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
             String newUpdateAvailable =b.getString("Update Notification");
 
             //Directly go to notification tab skipping the splash screen and calendar tab
-            if(goToNotification.equals("true")){
+            if(goToNotification.equalsIgnoreCase("true")){
 
             jumpToNotificationOnLaunch=true;
 
             }
             // Go to play store on clicking the notification
-            if(newUpdateAvailable.equals("true")){
+            if(newUpdateAvailable.equalsIgnoreCase("true")){
                 try {
                     Intent appStoreIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));
                     appStoreIntent.setPackage("com.android.vending");
